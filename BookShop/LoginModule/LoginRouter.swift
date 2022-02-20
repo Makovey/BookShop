@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol LoginRouterInput {}
 
 class LoginRouter: LoginRouterInput {}

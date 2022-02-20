@@ -14,10 +14,10 @@ class SignUpAssembly {
         let router = SignUpRouter()
         let interactor = SignUpInteractor()
         let presenter = SignUpPresenter(viewController: view, router: router, interactor: interactor)
-        
+
         view.output = presenter
         interactor.output = presenter
-        
+
         return view
     }
 }

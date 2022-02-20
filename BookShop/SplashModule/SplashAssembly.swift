@@ -14,12 +14,12 @@ class SplashAssembly {
         let router = SplashRouter()
         let interactor = SplashInteractor()
         let presenter = SplashPresenter(viewController: viewController, router: router, interactor: interactor)
-        
+
         viewController.output = presenter
         interactor.output = presenter
-        
+
         router.rootViewController = viewController
-        
+
         return viewController
     }
 }

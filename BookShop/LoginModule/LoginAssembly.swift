@@ -14,10 +14,10 @@ class LoginAssembly {
         let router = LoginRouter()
         let interactor = LoginInteractor()
         let presenter = LoginPresenter(viewController: view, router: router, interactor: interactor)
-        
+
         view.output = presenter
         interactor.output = presenter
-        
+
         return view
     }
 }

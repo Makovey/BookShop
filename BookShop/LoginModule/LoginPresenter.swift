@@ -11,7 +11,7 @@ class LoginPresenter {
     private weak var viewController: LoginViewInput?
     private let router: LoginRouterInput
     private let interactor: LoginInteractorInput
-    
+
     init(viewController: LoginViewInput, router: LoginRouterInput, interactor: LoginInteractorInput) {
         self.viewController = viewController
         self.router = router
@@ -19,11 +19,10 @@ class LoginPresenter {
     }
 }
 
-
 extension LoginPresenter: LoginViewOutput {
-    
+
 }
 
 extension LoginPresenter: LoginInteractorOutput {
-    
+
 }

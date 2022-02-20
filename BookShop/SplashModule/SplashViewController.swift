@@ -17,27 +17,27 @@ protocol SplashViewOutput {
 
 class SplashViewController: UIViewController {
     var output: SplashViewOutput?
-    
+
     let logoImage = UIImageView()
     let loginButton = BSButton(title: "Login")
     let signUpButton = BSButton(title: "Sign Up")
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = .systemBackground
-        
+
         configureLogoImage()
         configureLoginButton()
         configureSignUpButton()
     }
-    
+
     private func configureLogoImage() {
         view.addSubview(logoImage)
-        
+
         logoImage.translatesAutoresizingMaskIntoConstraints = false
         logoImage.image = UIImage(named: "logo")
-        
+
         NSLayoutConstraint.activate([
             logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 140),
             logoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -45,15 +45,15 @@ class SplashViewController: UIViewController {
             logoImage.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
-    
+
     private func configureLoginButton() {
         view.addSubview(loginButton)
-        
+
         loginButton.backgroundColor = .label
         loginButton.setTitleColor(.systemBackground, for: .normal)
-        
+
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
-        
+
         NSLayoutConstraint.activate([
             loginButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -115),
             loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
@@ -61,15 +61,15 @@ class SplashViewController: UIViewController {
             loginButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
+
     private func configureSignUpButton() {
         view.addSubview(signUpButton)
-        
+
         signUpButton.layer.borderWidth = 2
         signUpButton.layer.borderColor = UIColor.label.cgColor
         signUpButton.backgroundColor = .systemBackground
         signUpButton.setTitleColor(.label, for: .normal)
-        
+
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
@@ -79,17 +79,17 @@ class SplashViewController: UIViewController {
             signUpButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
+
     @objc private func loginButtonTapped() {
         output?.didLoginButtonTapped()
     }
-    
+
     @objc private func signUpButtonTapped() {
         output?.didSignUpButtonTapped()
     }
-    
+
 }
 
 extension SplashViewController: SplashViewInput {
-    
+
 }

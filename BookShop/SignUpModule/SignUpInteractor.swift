@@ -16,5 +16,5 @@ class SignUpInteractor {
 }
 
 extension SignUpInteractor: SignUpInteractorInput {
-    
+
 }

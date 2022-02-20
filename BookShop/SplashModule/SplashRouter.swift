@@ -15,14 +15,14 @@ protocol SplashRouterInput {
 
 class SplashRouter: SplashRouterInput {
     weak var rootViewController: UIViewController?
-    
+
     func openLoginScreen() {
-        let vc = LoginAssembly.createLoginScreen()
-        rootViewController?.present(vc, animated: true, completion: nil)
+        let viewController = LoginAssembly.createLoginScreen()
+        rootViewController?.present(viewController, animated: true, completion: nil)
     }
-    
+
     func openSignUpScreen() {
-        let vc = SignUpAssembly.createSignUpScreen()
-        rootViewController?.present(vc, animated: true, completion: nil)
+        let viewController = SignUpAssembly.createSignUpScreen()
+        rootViewController?.present(viewController, animated: true, completion: nil)
     }
 }

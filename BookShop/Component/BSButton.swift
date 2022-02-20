@@ -18,24 +18,24 @@ class BSButton: UIButton {
 //    convenience init() {
 //        self.init(type: .system)
 //    }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     init(title: String) {
         super.init(frame: .zero)
 //        self.backgroundColor = backgroundColor
         self.setTitle(title, for: .normal)
         configure()
     }
-    
+
     private func configure() {
         layer.cornerRadius = 20
-        
+
         titleLabel?.font = UIFont(name: "Futura", size: 18)
-        
+
         translatesAutoresizingMaskIntoConstraints = false
     }
-    
+
 }
