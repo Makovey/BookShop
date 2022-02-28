@@ -8,16 +8,7 @@
 import Foundation
 import UIKit
 
-class BSButton: UIButton {
-
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        configure()
-//    }
-//
-//    convenience init() {
-//        self.init(type: .system)
-//    }
+class Button: UIButton {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -25,7 +16,6 @@ class BSButton: UIButton {
 
     init(title: String) {
         super.init(frame: .zero)
-//        self.backgroundColor = backgroundColor
         self.setTitle(title, for: .normal)
         configure()
     }

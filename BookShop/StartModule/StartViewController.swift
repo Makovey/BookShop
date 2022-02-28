@@ -1,5 +1,5 @@
 //
-//  SplashViewController.swift
+//  StartViewController.swift
 //  BookShop
 //
 //  Created by MAKOVEY Vladislav on 14.02.2022.
@@ -8,28 +8,28 @@
 import Foundation
 import UIKit
 
-protocol SplashViewInput: AnyObject {}
+protocol StartViewInput: AnyObject {}
 
-protocol SplashViewOutput {
+protocol StartViewOutput {
     func didLoginButtonTapped()
     func didSignUpButtonTapped()
 }
 
-class SplashViewController: UIViewController {
-    var output: SplashViewOutput?
+class StartViewController: UIViewController {
+    var output: StartViewOutput?
 
     let logoImage = UIImageView()
-    let loginButton = BSButton(title: "Login")
-    let signUpButton = BSButton(title: "Sign Up")
-
+    let loginButton = Button(title: "Login".localized())
+    let signUpButton = Button(title: "Sign Up".localized())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
 
         configureLogoImage()
-        configureLoginButton()
         configureSignUpButton()
+        configureLoginButton()
     }
 
     private func configureLogoImage() {
@@ -55,10 +55,10 @@ class SplashViewController: UIViewController {
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
-            loginButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -115),
-            loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            loginButton.heightAnchor.constraint(equalToConstant: 50)
+            loginButton.bottomAnchor.constraint(equalTo: signUpButton.safeAreaLayoutGuide.bottomAnchor, constant: -75),
+            loginButton.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor),
+            loginButton.leadingAnchor.constraint(equalTo: signUpButton.leadingAnchor),
+            loginButton.heightAnchor.constraint(equalToConstant: K.bottomHeight)
         ])
     }
 
@@ -74,9 +74,9 @@ class SplashViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             signUpButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
-            signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            signUpButton.heightAnchor.constraint(equalToConstant: 50)
+            signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -K.sideDistance),
+            signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: K.sideDistance),
+            signUpButton.heightAnchor.constraint(equalToConstant: K.bottomHeight)
         ])
     }
 
@@ -90,6 +90,6 @@ class SplashViewController: UIViewController {
 
 }
 
-extension SplashViewController: SplashViewInput {
+extension StartViewController: StartViewInput {
 
 }

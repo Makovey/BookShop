@@ -16,27 +16,100 @@ class SignUpViewController: UIViewController {
 
     let logoImage = UIImageView()
 
-    var labelsStack = UIStackView()
-    let signUpLabel = BSLabel(withText: "Sign Up", fontSize: 24)
-    let desciptionLabel = BSLabel(withText: "Create your new account", fontSize: 14)
+    let signUpLabel = Label(withText: "Sign Up".localized(), fontSize: 24)
+    var descriptionLabel: Label {
+        let descriptionLabel = Label(withText: "Create your new account".localized(), fontSize: 14)
+        descriptionLabel.textColor = .systemGray
+        
+        return descriptionLabel
+    }
+    
+    lazy var labelsStack: UIStackView = {
+        labelsStack = UIStackView(arrangedSubviews: [signUpLabel, descriptionLabel])
+        labelsStack.axis = .vertical
+        labelsStack.distribution = .equalSpacing
+        labelsStack.translatesAutoresizingMaskIntoConstraints = false
 
-    var usernameStack = UIStackView()
-    let usernameLabel = BSLabel(withText: "Username", fontSize: 18)
-    let usernameTextField = BSTextField()
+        return labelsStack
+    }()
 
-    var emailStack = UIStackView()
-    let emailLabel = BSLabel(withText: "Email", fontSize: 18)
-    let emailTextField = BSTextField()
+    let usernameLabel = Label(withText: "Username".localized(), fontSize: 18)
+    var usernameTextField: TextField {
+        let usernameTextField = TextField()
+        usernameTextField.returnKeyType = .next
+        usernameTextField.textContentType = .name
+        
+        return usernameTextField
+    }
+    
+    lazy var usernameStack: UIStackView = {
+        usernameStack = UIStackView(arrangedSubviews: [usernameLabel, usernameTextField])
+        usernameStack.axis = .vertical
+        usernameStack.distribution = .equalSpacing
+        usernameStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return usernameStack
+    }()
 
-    var passwordStack = UIStackView()
-    let passwordLabel = BSLabel(withText: "Password", fontSize: 18)
-    let passwordTextField = BSTextField()
+    let emailLabel = Label(withText: "Email".localized(), fontSize: 18)
+    var emailTextField: TextField {
+        let emailTextField = TextField()
+        emailTextField.autocapitalizationType = .none
+        emailTextField.returnKeyType = .next
+        emailTextField.keyboardType = .emailAddress
+        emailTextField.textContentType = .emailAddress
+        
+        return emailTextField
+    }
 
-    var passwordConfirmStack = UIStackView()
-    let passwordConfirmLabel = BSLabel(withText: "Confirm Password", fontSize: 18)
-    let passwordConfirmTextField = BSTextField()
+    lazy var emailStack: UIStackView = {
+        let emailStack = UIStackView(arrangedSubviews: [emailLabel, emailTextField])
+        emailStack.axis = .vertical
+        emailStack.distribution = .equalSpacing
+        emailStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return emailStack
+    }()
 
-    let signUpButton = BSButton(title: "Sign Up")
+    let passwordLabel = Label(withText: "Password".localized(), fontSize: 18)
+    var passwordTextField: TextField {
+        let passwordTextField = TextField()
+        passwordTextField.returnKeyType = .next
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.textContentType = .password
+        
+        return passwordTextField
+    }
+    
+    lazy var passwordStack: UIStackView = {
+        passwordStack = UIStackView(arrangedSubviews: [passwordLabel, passwordTextField])
+        passwordStack.axis = .vertical
+        passwordStack.distribution = .equalSpacing
+        passwordStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return passwordStack
+    }()
+
+    let passwordConfirmLabel = Label(withText: "Confirm Password".localized(), fontSize: K.titleFontSize)
+    var passwordConfirmTextField: TextField {
+        let passwordConfirmTextField = TextField()
+        passwordConfirmTextField.returnKeyType = .go
+        passwordConfirmTextField.isSecureTextEntry = true
+        passwordConfirmTextField.textContentType = .password
+        
+        return passwordConfirmTextField
+    }
+    
+    lazy var passwordConfirmStack: UIStackView = {
+        passwordConfirmStack = UIStackView(arrangedSubviews: [passwordConfirmLabel, passwordConfirmTextField])
+        passwordConfirmStack.axis = .vertical
+        passwordConfirmStack.distribution = .equalSpacing
+        passwordConfirmStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return passwordConfirmStack
+    }()
+
+    let signUpButton = Button(title: "Sign Up".localized())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +138,7 @@ class SignUpViewController: UIViewController {
         logoImage.image = UIImage(named: "logo")
 
         NSLayoutConstraint.activate([
-            logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: K.topDistance),
             logoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImage.heightAnchor.constraint(equalToConstant: 100),
             logoImage.widthAnchor.constraint(equalToConstant: 150)
@@ -73,106 +146,58 @@ class SignUpViewController: UIViewController {
     }
 
     private func configureSignUpLabels() {
-        labelsStack = UIStackView(arrangedSubviews: [signUpLabel, desciptionLabel])
-        labelsStack.axis = .vertical
-        labelsStack.distribution = .equalSpacing
-
         view.addSubview(labelsStack)
 
-        labelsStack.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
-            labelsStack.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 40),
-            labelsStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25),
-            labelsStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -25),
-            labelsStack.heightAnchor.constraint(equalToConstant: 50)
+            labelsStack.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: K.topDistance),
+            labelsStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: K.sideDistance),
+            labelsStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -K.sideDistance),
+            labelsStack.heightAnchor.constraint(equalToConstant: K.stackHeight)
         ])
-
-        desciptionLabel.textColor = .systemGray
     }
 
     private func configureUsernameStack() {
-        usernameStack = UIStackView(arrangedSubviews: [usernameLabel, usernameTextField])
-        usernameStack.axis = .vertical
-        usernameStack.distribution = .equalSpacing
-
-        usernameStack.translatesAutoresizingMaskIntoConstraints = false
-
         view.addSubview(usernameStack)
 
         NSLayoutConstraint.activate([
             usernameStack.topAnchor.constraint(equalTo: labelsStack.bottomAnchor, constant: 50),
-            usernameStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25),
-            usernameStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -25),
-            usernameStack.heightAnchor.constraint(equalToConstant: 60)
+            usernameStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: K.sideDistance),
+            usernameStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -K.sideDistance),
+            usernameStack.heightAnchor.constraint(equalToConstant: K.stackHeight)
         ])
-
-        usernameTextField.returnKeyType = .next
-        usernameTextField.textContentType = .name
     }
 
     private func configureEmailStack() {
-        emailStack = UIStackView(arrangedSubviews: [emailLabel, emailTextField])
-        emailStack.axis = .vertical
-        emailStack.distribution = .equalSpacing
-
-        emailStack.translatesAutoresizingMaskIntoConstraints = false
-
         view.addSubview(emailStack)
-
+        
         NSLayoutConstraint.activate([
-            emailStack.topAnchor.constraint(equalTo: usernameStack.bottomAnchor, constant: 40),
-            emailStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25),
-            emailStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -25),
-            emailStack.heightAnchor.constraint(equalToConstant: 60)
+            emailStack.topAnchor.constraint(equalTo: usernameStack.bottomAnchor, constant: K.topDistance),
+            emailStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: K.sideDistance),
+            emailStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -K.sideDistance),
+            emailStack.heightAnchor.constraint(equalToConstant: K.stackHeight)
         ])
-
-        emailTextField.autocapitalizationType = .none
-        emailTextField.returnKeyType = .next
-        emailTextField.keyboardType = .emailAddress
-        emailTextField.textContentType = .emailAddress
     }
 
     private func configurePasswordStack() {
-        passwordStack = UIStackView(arrangedSubviews: [passwordLabel, passwordTextField])
-        passwordStack.axis = .vertical
-        passwordStack.distribution = .equalSpacing
-
-        passwordStack.translatesAutoresizingMaskIntoConstraints = false
-
         view.addSubview(passwordStack)
 
         NSLayoutConstraint.activate([
-            passwordStack.topAnchor.constraint(equalTo: emailStack.bottomAnchor, constant: 40),
-            passwordStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25),
-            passwordStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -25),
-            passwordStack.heightAnchor.constraint(equalToConstant: 60)
+            passwordStack.topAnchor.constraint(equalTo: emailStack.bottomAnchor, constant: K.topDistance),
+            passwordStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: K.sideDistance),
+            passwordStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -K.sideDistance),
+            passwordStack.heightAnchor.constraint(equalToConstant: K.stackHeight)
         ])
-
-        passwordTextField.returnKeyType = .next
-        passwordTextField.isSecureTextEntry = true
-        passwordTextField.textContentType = .password
     }
 
     private func configurePasswordConfirmStack() {
-        passwordConfirmStack = UIStackView(arrangedSubviews: [passwordConfirmLabel, passwordConfirmTextField])
-        passwordConfirmStack.axis = .vertical
-        passwordConfirmStack.distribution = .equalSpacing
-
-        passwordConfirmStack.translatesAutoresizingMaskIntoConstraints = false
-
         view.addSubview(passwordConfirmStack)
 
         NSLayoutConstraint.activate([
-            passwordConfirmStack.topAnchor.constraint(equalTo: passwordStack.bottomAnchor, constant: 40),
-            passwordConfirmStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25),
-            passwordConfirmStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -25),
-            passwordConfirmStack.heightAnchor.constraint(equalToConstant: 60)
+            passwordConfirmStack.topAnchor.constraint(equalTo: passwordStack.bottomAnchor, constant: K.topDistance),
+            passwordConfirmStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: K.sideDistance),
+            passwordConfirmStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -K.sideDistance),
+            passwordConfirmStack.heightAnchor.constraint(equalToConstant: K.stackHeight)
         ])
-
-        passwordConfirmTextField.returnKeyType = .go
-        passwordConfirmTextField.isSecureTextEntry = true
-        passwordConfirmTextField.textContentType = .password
     }
 
     private func configureSignUpButton() {
@@ -184,10 +209,10 @@ class SignUpViewController: UIViewController {
         signUpButton.addTarget(self, action: #selector(signUpAction), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
-            signUpButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
-            signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            signUpButton.heightAnchor.constraint(equalToConstant: 50)
+            signUpButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -K.topDistance),
+            signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -K.sideDistance),
+            signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: K.sideDistance),
+            signUpButton.heightAnchor.constraint(equalToConstant: K.bottomHeight)
         ])
     }
 

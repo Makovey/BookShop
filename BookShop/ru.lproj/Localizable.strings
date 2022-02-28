@@ -1,0 +1,21 @@
+/*
+  Localizable.strings
+  BookShop
+
+  Created by MAKOVEY Vladislav on 25.02.2022.
+  
+*/
+
+// StartScreen
+"Login" = "Войти";
+"Sign Up" = "Зарегистрироваться";
+
+// LoginScreen
+"Welcome" = "Добро пожаловать";
+"Please, login to start your shopping" = "Войдите чтобы начать шоппинг";
+"Password" = "Пароль";
+
+// SignUpScreen
+"Create your new account" = "Создайте новый аккаунт";
+"Username" = "Имя";
+"Confirm Password" = "Подтвердите пароль";
