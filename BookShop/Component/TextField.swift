@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class BSTextField: UITextField {
+class TextField: UITextField {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,16 +32,15 @@ class BSTextField: UITextField {
     }
 
     private func createBottomLine() {
-        var bottomBorder = UIView()
-        bottomBorder = UIView.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        bottomBorder.backgroundColor = UIColor.lightGray
+        let bottomBorder = UIView.init(frame: .zero)
+        bottomBorder.backgroundColor = .lightGray
         bottomBorder.translatesAutoresizingMaskIntoConstraints = false
         addSubview(bottomBorder)
 
         NSLayoutConstraint.activate([
-            bottomBorder.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 4),
-            bottomBorder.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
-            bottomBorder.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
+            bottomBorder.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 4),
+            bottomBorder.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bottomBorder.leadingAnchor.constraint(equalTo: leadingAnchor),
             bottomBorder.heightAnchor.constraint(equalToConstant: 2)
         ])
     }

@@ -8,11 +8,7 @@
 import Foundation
 import UIKit
 
-class BSLabel: UILabel {
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
+class Label: UILabel {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -23,9 +19,5 @@ class BSLabel: UILabel {
         text = withText
         textColor = .label
         font = UIFont(name: "Futura", size: fontSize)
-    }
-
-    func configure() {
-
     }
 }

@@ -17,19 +17,62 @@ class LoginViewController: UIViewController {
 
     let logoImage = UIImageView()
 
-    var labelsStack = UIStackView()
-    let welcomeLabel = BSLabel(withText: "Welcome", fontSize: 24)
-    let desciptionLabel = BSLabel(withText: "Please, login or sign up to start your shopping", fontSize: 14)
+    let welcomeLabel = Label(withText: "Welcome".localized(), fontSize: 24)
+    var descriptionLabel: Label {
+        let descriptionLabel = Label(withText: "Please, login to start your shopping".localized(), fontSize: Constant.descriptionFontSize)
+        descriptionLabel.textColor = .systemGray
+        
+        return descriptionLabel
+    }
+    
+    lazy var labelsStack: UIStackView = {
+       labelsStack = UIStackView(arrangedSubviews: [welcomeLabel, descriptionLabel])
+       labelsStack.axis = .vertical
+       labelsStack.distribution = .equalSpacing
+       labelsStack.translatesAutoresizingMaskIntoConstraints = false
+        return labelsStack
+    }()
+    
+    let emailLabel = Label(withText: "Email".localized(), fontSize: Constant.titleFontSize)
+    var emailTextField: TextField {
+        let emailTextField = TextField()
+        emailTextField.autocapitalizationType = .none
+        emailTextField.returnKeyType = .next
+        emailTextField.keyboardType = .emailAddress
+        emailTextField.textContentType = .emailAddress
+        
+        return emailTextField
+    }
+    
+    lazy var emailStack: UIStackView = {
+        emailStack = UIStackView(arrangedSubviews: [emailLabel, emailTextField])
+        emailStack.axis = .vertical
+        emailStack.distribution = .equalSpacing
 
-    var emailStack = UIStackView()
-    let emailLabel = BSLabel(withText: "Email", fontSize: 18)
-    let emailTextField = BSTextField()
+        emailStack.translatesAutoresizingMaskIntoConstraints = false
+        return emailStack
+    }()
 
-    var passwordStack = UIStackView()
-    let passwordLabel = BSLabel(withText: "Password", fontSize: 18)
-    let passwordTextField = BSTextField()
+    let passwordLabel = Label(withText: "Password".localized(), fontSize: Constant.titleFontSize)
+    var passwordTextField: TextField {
+        let passwordTextField = TextField()
+        passwordTextField.returnKeyType = .go
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.textContentType = .password
+        
+        return passwordTextField
+    }
+    
+    lazy var passwordStack: UIStackView = {
+        passwordStack = UIStackView(arrangedSubviews: [passwordLabel, passwordTextField])
+        passwordStack.axis = .vertical
+        passwordStack.distribution = .equalSpacing
 
-    let loginButton = BSButton(title: "Login")
+        passwordStack.translatesAutoresizingMaskIntoConstraints = false
+        return passwordStack
+    }()
+
+    let loginButton = Button(title: "Login".localized())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +97,7 @@ class LoginViewController: UIViewController {
         logoImage.image = UIImage(named: "logo")
 
         NSLayoutConstraint.activate([
-            logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.topDistance),
             logoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImage.heightAnchor.constraint(equalToConstant: 100),
             logoImage.widthAnchor.constraint(equalToConstant: 150)
@@ -62,65 +105,37 @@ class LoginViewController: UIViewController {
     }
 
     private func configureWelcomeLabels() {
-        labelsStack = UIStackView(arrangedSubviews: [welcomeLabel, desciptionLabel])
-        labelsStack.axis = .vertical
-        labelsStack.distribution = .equalSpacing
-
         view.addSubview(labelsStack)
 
-        labelsStack.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
-            labelsStack.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 40),
-            labelsStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25),
-            labelsStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -25),
-            labelsStack.heightAnchor.constraint(equalToConstant: 50)
+            labelsStack.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: Constant.topDistance),
+            labelsStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
+            labelsStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            labelsStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
-
-        desciptionLabel.textColor = .systemGray
     }
 
     private func configureEmailStack() {
-        emailStack = UIStackView(arrangedSubviews: [emailLabel, emailTextField])
-        emailStack.axis = .vertical
-        emailStack.distribution = .equalSpacing
-
-        emailStack.translatesAutoresizingMaskIntoConstraints = false
-
         view.addSubview(emailStack)
 
         NSLayoutConstraint.activate([
             emailStack.topAnchor.constraint(equalTo: labelsStack.bottomAnchor, constant: 50),
-            emailStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25),
-            emailStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -25),
-            emailStack.heightAnchor.constraint(equalToConstant: 60)
+            emailStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
+            emailStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            emailStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
-
-        emailTextField.autocapitalizationType = .none
-        emailTextField.returnKeyType = .next
-        emailTextField.keyboardType = .emailAddress
-        emailTextField.textContentType = .emailAddress
     }
 
     private func configurePasswordStack() {
-        passwordStack = UIStackView(arrangedSubviews: [passwordLabel, passwordTextField])
-        passwordStack.axis = .vertical
-        passwordStack.distribution = .equalSpacing
-
-        passwordStack.translatesAutoresizingMaskIntoConstraints = false
-
         view.addSubview(passwordStack)
 
         NSLayoutConstraint.activate([
-            passwordStack.topAnchor.constraint(equalTo: emailStack.bottomAnchor, constant: 40),
-            passwordStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25),
-            passwordStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -25),
-            passwordStack.heightAnchor.constraint(equalToConstant: 60)
+            passwordStack.topAnchor.constraint(equalTo: emailStack.bottomAnchor, constant: Constant.topDistance),
+            passwordStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
+            passwordStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            passwordStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
 
-        passwordTextField.returnKeyType = .go
-        passwordTextField.isSecureTextEntry = true
-        passwordTextField.textContentType = .password
     }
 
     private func configureLoginButton() {
@@ -132,10 +147,10 @@ class LoginViewController: UIViewController {
         loginButton.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
-            loginButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
-            loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            loginButton.heightAnchor.constraint(equalToConstant: 50)
+            loginButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.topDistance),
+            loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
+            loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            loginButton.heightAnchor.constraint(equalToConstant: Constant.bottomHeight)
         ])
     }
 

@@ -1,5 +1,5 @@
 //
-//  SplashRouter.swift
+//  StartRouter.swift
 //  BookShop
 //
 //  Created by MAKOVEY Vladislav on 14.02.2022.
@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-protocol SplashRouterInput {
+protocol StartRouterInput {
     func openLoginScreen()
     func openSignUpScreen()
 }
 
-class SplashRouter: SplashRouterInput {
+class StartRouter: StartRouterInput {
     weak var rootViewController: UIViewController?
 
     func openLoginScreen() {
