@@ -58,7 +58,7 @@ class StartViewController: UIViewController {
             loginButton.bottomAnchor.constraint(equalTo: signUpButton.safeAreaLayoutGuide.bottomAnchor, constant: -75),
             loginButton.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor),
             loginButton.leadingAnchor.constraint(equalTo: signUpButton.leadingAnchor),
-            loginButton.heightAnchor.constraint(equalToConstant: K.bottomHeight)
+            loginButton.heightAnchor.constraint(equalToConstant: Constant.bottomHeight)
         ])
     }
 
@@ -74,9 +74,9 @@ class StartViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             signUpButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
-            signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -K.sideDistance),
-            signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: K.sideDistance),
-            signUpButton.heightAnchor.constraint(equalToConstant: K.bottomHeight)
+            signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
+            signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            signUpButton.heightAnchor.constraint(equalToConstant: Constant.bottomHeight)
         ])
     }
 

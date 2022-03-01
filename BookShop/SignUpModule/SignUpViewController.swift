@@ -90,7 +90,7 @@ class SignUpViewController: UIViewController {
         return passwordStack
     }()
 
-    let passwordConfirmLabel = Label(withText: "Confirm Password".localized(), fontSize: K.titleFontSize)
+    let passwordConfirmLabel = Label(withText: "Confirm Password".localized(), fontSize: Constant.titleFontSize)
     var passwordConfirmTextField: TextField {
         let passwordConfirmTextField = TextField()
         passwordConfirmTextField.returnKeyType = .go
@@ -138,7 +138,7 @@ class SignUpViewController: UIViewController {
         logoImage.image = UIImage(named: "logo")
 
         NSLayoutConstraint.activate([
-            logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: K.topDistance),
+            logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.topDistance),
             logoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImage.heightAnchor.constraint(equalToConstant: 100),
             logoImage.widthAnchor.constraint(equalToConstant: 150)
@@ -149,10 +149,10 @@ class SignUpViewController: UIViewController {
         view.addSubview(labelsStack)
 
         NSLayoutConstraint.activate([
-            labelsStack.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: K.topDistance),
-            labelsStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: K.sideDistance),
-            labelsStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -K.sideDistance),
-            labelsStack.heightAnchor.constraint(equalToConstant: K.stackHeight)
+            labelsStack.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: Constant.topDistance),
+            labelsStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
+            labelsStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            labelsStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
 
@@ -161,9 +161,9 @@ class SignUpViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             usernameStack.topAnchor.constraint(equalTo: labelsStack.bottomAnchor, constant: 50),
-            usernameStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: K.sideDistance),
-            usernameStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -K.sideDistance),
-            usernameStack.heightAnchor.constraint(equalToConstant: K.stackHeight)
+            usernameStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
+            usernameStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            usernameStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
 
@@ -171,10 +171,10 @@ class SignUpViewController: UIViewController {
         view.addSubview(emailStack)
         
         NSLayoutConstraint.activate([
-            emailStack.topAnchor.constraint(equalTo: usernameStack.bottomAnchor, constant: K.topDistance),
-            emailStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: K.sideDistance),
-            emailStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -K.sideDistance),
-            emailStack.heightAnchor.constraint(equalToConstant: K.stackHeight)
+            emailStack.topAnchor.constraint(equalTo: usernameStack.bottomAnchor, constant: Constant.topDistance),
+            emailStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
+            emailStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            emailStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
 
@@ -182,10 +182,10 @@ class SignUpViewController: UIViewController {
         view.addSubview(passwordStack)
 
         NSLayoutConstraint.activate([
-            passwordStack.topAnchor.constraint(equalTo: emailStack.bottomAnchor, constant: K.topDistance),
-            passwordStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: K.sideDistance),
-            passwordStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -K.sideDistance),
-            passwordStack.heightAnchor.constraint(equalToConstant: K.stackHeight)
+            passwordStack.topAnchor.constraint(equalTo: emailStack.bottomAnchor, constant: Constant.topDistance),
+            passwordStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
+            passwordStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            passwordStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
 
@@ -193,10 +193,10 @@ class SignUpViewController: UIViewController {
         view.addSubview(passwordConfirmStack)
 
         NSLayoutConstraint.activate([
-            passwordConfirmStack.topAnchor.constraint(equalTo: passwordStack.bottomAnchor, constant: K.topDistance),
-            passwordConfirmStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: K.sideDistance),
-            passwordConfirmStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -K.sideDistance),
-            passwordConfirmStack.heightAnchor.constraint(equalToConstant: K.stackHeight)
+            passwordConfirmStack.topAnchor.constraint(equalTo: passwordStack.bottomAnchor, constant: Constant.topDistance),
+            passwordConfirmStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
+            passwordConfirmStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            passwordConfirmStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
 
@@ -209,10 +209,10 @@ class SignUpViewController: UIViewController {
         signUpButton.addTarget(self, action: #selector(signUpAction), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
-            signUpButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -K.topDistance),
-            signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -K.sideDistance),
-            signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: K.sideDistance),
-            signUpButton.heightAnchor.constraint(equalToConstant: K.bottomHeight)
+            signUpButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.topDistance),
+            signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
+            signUpButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            signUpButton.heightAnchor.constraint(equalToConstant: Constant.bottomHeight)
         ])
     }
 

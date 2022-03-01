@@ -19,7 +19,7 @@ class LoginViewController: UIViewController {
 
     let welcomeLabel = Label(withText: "Welcome".localized(), fontSize: 24)
     var descriptionLabel: Label {
-        let descriptionLabel = Label(withText: "Please, login to start your shopping".localized(), fontSize: K.descriptionFontSize)
+        let descriptionLabel = Label(withText: "Please, login to start your shopping".localized(), fontSize: Constant.descriptionFontSize)
         descriptionLabel.textColor = .systemGray
         
         return descriptionLabel
@@ -33,7 +33,7 @@ class LoginViewController: UIViewController {
         return labelsStack
     }()
     
-    let emailLabel = Label(withText: "Email".localized(), fontSize: K.titleFontSize)
+    let emailLabel = Label(withText: "Email".localized(), fontSize: Constant.titleFontSize)
     var emailTextField: TextField {
         let emailTextField = TextField()
         emailTextField.autocapitalizationType = .none
@@ -53,7 +53,7 @@ class LoginViewController: UIViewController {
         return emailStack
     }()
 
-    let passwordLabel = Label(withText: "Password".localized(), fontSize: K.titleFontSize)
+    let passwordLabel = Label(withText: "Password".localized(), fontSize: Constant.titleFontSize)
     var passwordTextField: TextField {
         let passwordTextField = TextField()
         passwordTextField.returnKeyType = .go
@@ -97,7 +97,7 @@ class LoginViewController: UIViewController {
         logoImage.image = UIImage(named: "logo")
 
         NSLayoutConstraint.activate([
-            logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: K.topDistance),
+            logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.topDistance),
             logoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImage.heightAnchor.constraint(equalToConstant: 100),
             logoImage.widthAnchor.constraint(equalToConstant: 150)
@@ -108,10 +108,10 @@ class LoginViewController: UIViewController {
         view.addSubview(labelsStack)
 
         NSLayoutConstraint.activate([
-            labelsStack.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: K.topDistance),
-            labelsStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: K.sideDistance),
-            labelsStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -K.sideDistance),
-            labelsStack.heightAnchor.constraint(equalToConstant: K.stackHeight)
+            labelsStack.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: Constant.topDistance),
+            labelsStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
+            labelsStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            labelsStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
 
@@ -120,9 +120,9 @@ class LoginViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             emailStack.topAnchor.constraint(equalTo: labelsStack.bottomAnchor, constant: 50),
-            emailStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: K.sideDistance),
-            emailStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -K.sideDistance),
-            emailStack.heightAnchor.constraint(equalToConstant: K.stackHeight)
+            emailStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
+            emailStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            emailStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
 
@@ -130,10 +130,10 @@ class LoginViewController: UIViewController {
         view.addSubview(passwordStack)
 
         NSLayoutConstraint.activate([
-            passwordStack.topAnchor.constraint(equalTo: emailStack.bottomAnchor, constant: K.topDistance),
-            passwordStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: K.sideDistance),
-            passwordStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -K.sideDistance),
-            passwordStack.heightAnchor.constraint(equalToConstant: K.stackHeight)
+            passwordStack.topAnchor.constraint(equalTo: emailStack.bottomAnchor, constant: Constant.topDistance),
+            passwordStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
+            passwordStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            passwordStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
 
     }
@@ -147,10 +147,10 @@ class LoginViewController: UIViewController {
         loginButton.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
-            loginButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -K.topDistance),
-            loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -K.sideDistance),
-            loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: K.sideDistance),
-            loginButton.heightAnchor.constraint(equalToConstant: K.bottomHeight)
+            loginButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.topDistance),
+            loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
+            loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            loginButton.heightAnchor.constraint(equalToConstant: Constant.bottomHeight)
         ])
     }
 
