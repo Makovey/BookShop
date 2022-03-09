@@ -12,11 +12,16 @@ class SignUpAssembly {
     static func createSignUpScreen() -> UIViewController {
         let view = SignUpViewController()
         let router = SignUpRouter()
-        let interactor = SignUpInteractor()
+        
+        let networkService = NetworkService()
+        let interactor = SignUpInteractor(networkService: networkService)
+        
         let presenter = SignUpPresenter(viewController: view, router: router, interactor: interactor)
 
         view.output = presenter
         interactor.output = presenter
+        
+        router.rootViewController = view
 
         return view
     }

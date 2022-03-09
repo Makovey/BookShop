@@ -8,9 +8,13 @@
 import Foundation
 import UIKit
 
-protocol LoginViewInput: AnyObject {}
+protocol LoginViewInput: AnyObject {
+    func didTextFieldsEmpty()
+}
 
-protocol LoginViewOutput {}
+protocol LoginViewOutput {
+    func didLoginButtonTapped(email: String?, password: String?)
+}
 
 class LoginViewController: UIViewController {
     var output: LoginViewOutput?
@@ -26,42 +30,29 @@ class LoginViewController: UIViewController {
     }
     
     lazy var labelsStack: UIStackView = {
-       labelsStack = UIStackView(arrangedSubviews: [welcomeLabel, descriptionLabel])
-       labelsStack.axis = .vertical
-       labelsStack.distribution = .equalSpacing
-       labelsStack.translatesAutoresizingMaskIntoConstraints = false
+        labelsStack = UIStackView(arrangedSubviews: [welcomeLabel, descriptionLabel])
+        labelsStack.axis = .vertical
+        labelsStack.distribution = .equalSpacing
+        
+        labelsStack.translatesAutoresizingMaskIntoConstraints = false
         return labelsStack
     }()
     
     let emailLabel = Label(withText: "Email".localized(), fontSize: Constant.titleFontSize)
-    var emailTextField: TextField {
-        let emailTextField = TextField()
-        emailTextField.autocapitalizationType = .none
-        emailTextField.returnKeyType = .next
-        emailTextField.keyboardType = .emailAddress
-        emailTextField.textContentType = .emailAddress
-        
-        return emailTextField
-    }
+    let emailTextField = TextField()
     
     lazy var emailStack: UIStackView = {
         emailStack = UIStackView(arrangedSubviews: [emailLabel, emailTextField])
         emailStack.axis = .vertical
-        emailStack.distribution = .equalSpacing
-
+        emailStack.distribution = .equalCentering
+        emailStack.spacing = 15
+        
         emailStack.translatesAutoresizingMaskIntoConstraints = false
         return emailStack
     }()
 
     let passwordLabel = Label(withText: "Password".localized(), fontSize: Constant.titleFontSize)
-    var passwordTextField: TextField {
-        let passwordTextField = TextField()
-        passwordTextField.returnKeyType = .go
-        passwordTextField.isSecureTextEntry = true
-        passwordTextField.textContentType = .password
-        
-        return passwordTextField
-    }
+    let passwordTextField = TextField()
     
     lazy var passwordStack: UIStackView = {
         passwordStack = UIStackView(arrangedSubviews: [passwordLabel, passwordTextField])
@@ -71,7 +62,11 @@ class LoginViewController: UIViewController {
         passwordStack.translatesAutoresizingMaskIntoConstraints = false
         return passwordStack
     }()
-
+    
+    var errorLabels: [String: Label] =
+    ["email": Label(withText: "Please, fill your email".localized(), fontSize: Constant.descriptionFontSize),
+     "password": Label(withText: "Please, fill your password".localized(), fontSize: Constant.descriptionFontSize)]
+    
     let loginButton = Button(title: "Login".localized())
 
     override func viewDidLoad() {
@@ -117,7 +112,12 @@ class LoginViewController: UIViewController {
 
     private func configureEmailStack() {
         view.addSubview(emailStack)
-
+        
+        emailTextField.autocapitalizationType = .none
+        emailTextField.returnKeyType = .next
+        emailTextField.keyboardType = .emailAddress
+        emailTextField.textContentType = .emailAddress
+        
         NSLayoutConstraint.activate([
             emailStack.topAnchor.constraint(equalTo: labelsStack.bottomAnchor, constant: 50),
             emailStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
@@ -128,7 +128,11 @@ class LoginViewController: UIViewController {
 
     private func configurePasswordStack() {
         view.addSubview(passwordStack)
-
+        
+        passwordTextField.returnKeyType = .go
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.textContentType = .password
+        
         NSLayoutConstraint.activate([
             passwordStack.topAnchor.constraint(equalTo: emailStack.bottomAnchor, constant: Constant.topDistance),
             passwordStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
@@ -155,14 +159,27 @@ class LoginViewController: UIViewController {
     }
 
     @objc private func loginAction() {
-        print("Login tapped")
+        output?.didLoginButtonTapped(email: emailTextField.text, password: passwordTextField.text)
     }
 
     private func createDismissKeyboardTapGesture() {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }
-
+    
+    private func configureErrorLabel(label: Label, to textField: TextField) {
+        label.textColor = .systemRed
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: Constant.errorsDistance),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance)
+        ])
+    }
+    
 }
 
 extension LoginViewController: UITextFieldDelegate {
@@ -177,8 +194,30 @@ extension LoginViewController: UITextFieldDelegate {
         }
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case emailTextField:
+            view.subviews.filter { $0 == errorLabels["email"]}.first?.removeFromSuperview()
+        case passwordTextField:
+            view.subviews.filter { $0 == errorLabels["password"]}.first?.removeFromSuperview()
+        default:
+            fatalError("Not found textField: - \(textField)")
+        }
+    }
 }
 
 extension LoginViewController: LoginViewInput {
-
+    func didTextFieldsEmpty() {
+        for textField in [emailTextField, passwordTextField] where textField.text!.isEmpty {
+            switch textField {
+            case emailTextField:
+                configureErrorLabel(label: errorLabels["email"]!, to: textField)
+            case passwordTextField:
+                configureErrorLabel(label: errorLabels["password"]!, to: textField)
+            default:
+                fatalError("Not found textField: - \(textField)")
+            }
+        }
+    }
 }

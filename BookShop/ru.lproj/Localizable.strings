@@ -14,6 +14,8 @@
 "Welcome" = "Добро пожаловать";
 "Please, login to start your shopping" = "Войдите чтобы начать шоппинг";
 "Password" = "Пароль";
+"Please, fill your email" = "Пожалуйста, введите ваше имя";
+"Please, fill your password" = "Пожалуйста, введите ваш пароль";
 
 // SignUpScreen
 "Create your new account" = "Создайте новый аккаунт";

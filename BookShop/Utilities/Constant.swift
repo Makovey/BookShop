@@ -16,4 +16,6 @@ enum Constant {
     
     static let topDistance: CGFloat = 40
     static let sideDistance: CGFloat = 25
+    
+    static let errorsDistance: CGFloat = 5
 }

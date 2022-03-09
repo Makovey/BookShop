@@ -5,8 +5,6 @@
 //  Created by MAKOVEY Vladislav on 14.02.2022.
 //
 
-import Foundation
-
 class StartPresenter {
     private weak var viewController: StartViewInput?
     private let router: StartRouterInput
