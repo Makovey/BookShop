@@ -24,6 +24,7 @@
 		5E10E83427C96B1A0009BBA7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E10E83327C96B1A0009BBA7 /* Extensions.swift */; };
 		5E10E83727C96C310009BBA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E10E83927C96C310009BBA7 /* Localizable.strings */; };
 		5E10E83D27C974100009BBA7 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E10E83C27C974100009BBA7 /* Constant.swift */; };
+		5E1A878227DE7C4C0028F459 /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1A878127DE7C4C0028F459 /* Failure.swift */; };
 		5E2E8BA027D00172002AA85E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E8B9F27D00172002AA85E /* NetworkService.swift */; };
 		5E71668027BEB07800460552 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E71667F27BEB07800460552 /* Launch Screen.storyboard */; };
 		5E71668327BEE5ED00460552 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E71668227BEE5ED00460552 /* SignUpViewController.swift */; };
@@ -83,6 +84,7 @@
 		5E10E83827C96C310009BBA7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5E10E83B27C96F900009BBA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5E10E83C27C974100009BBA7 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		5E1A878127DE7C4C0028F459 /* Failure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Failure.swift; sourceTree = "<group>"; };
 		5E2E8B9F27D00172002AA85E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		5E71667F27BEB07800460552 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5E71668227BEE5ED00460552 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				5E10E83327C96B1A0009BBA7 /* Extensions.swift */,
 				5E10E83C27C974100009BBA7 /* Constant.swift */,
 				5EEDAB8727D1287800BB9FA2 /* URLStorage.swift */,
+				5E1A878127DE7C4C0028F459 /* Failure.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				5E89AD0327D2AF5900276B01 /* HomePresenter.swift in Sources */,
 				5E71668527BEE5FB00460552 /* SignUpPresenter.swift in Sources */,
 				5E0A544A27BC3E0900FCA23D /* LoginViewController.swift in Sources */,
+				5E1A878227DE7C4C0028F459 /* Failure.swift in Sources */,
 				5EEDAB8827D1287800BB9FA2 /* URLStorage.swift in Sources */,
 				5E0A544C27BC3E9700FCA23D /* LoginAssembly.swift in Sources */,
 				5E10E83D27C974100009BBA7 /* Constant.swift in Sources */,

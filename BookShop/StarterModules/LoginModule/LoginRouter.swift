@@ -5,7 +5,6 @@
 //  Created by MAKOVEY Vladislav on 15.02.2022.
 //
 
-import Foundation
 import UIKit
 
 protocol LoginRouterInput {

@@ -20,8 +20,7 @@ class HomeAssembly {
         
         router.rootViewController = view
         
-        // где такими вещами заниматься?
-        view.nameLabel.text = name
+        view.name = name
         
         return view
     }

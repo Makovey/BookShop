@@ -14,10 +14,19 @@
 "Welcome" = "Добро пожаловать";
 "Please, login to start your shopping" = "Войдите чтобы начать шоппинг";
 "Password" = "Пароль";
-"Please, fill your email" = "Пожалуйста, введите ваше имя";
-"Please, fill your password" = "Пожалуйста, введите ваш пароль";
 
 // SignUpScreen
 "Create your new account" = "Создайте новый аккаунт";
 "Username" = "Имя";
 "Confirm Password" = "Подтвердите пароль";
+
+// Errors
+"Please, fill your email" = "Пожалуйста, введите ваше имя";
+"Please, fill your password" = "Пожалуйста, введите ваш пароль";
+"Please, fill your username" = "Пожалуйста, введите ваше имя";
+"Please, confirm your password" = "Пожалуйста, подтвердите пароль";
+"Something went wrong" = "Что-то пошло не так";
+"Incorrect login or password" = "Неправильный логин или пароль";
+"Please, login again and try again" = "Пожалуйста, войдите войдите снова и попробуйте еще раз";
+"No internet connection" = "Нет интернет соединения";
+"Your password do not match" = "Ващи пароли не совпадают";

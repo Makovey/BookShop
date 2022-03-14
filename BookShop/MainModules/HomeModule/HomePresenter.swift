@@ -17,6 +17,10 @@ class HomePresenter {
     }
 }
 
-extension HomePresenter: HomeViewControllerOutput {}
+extension HomePresenter: HomeViewControllerOutput {
+    func viewDidLoad() {
+        // WIP
+    }
+}
 
 extension HomePresenter: HomeInteractorOutput {}

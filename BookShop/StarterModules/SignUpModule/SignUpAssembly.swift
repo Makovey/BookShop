@@ -13,7 +13,7 @@ class SignUpAssembly {
         let view = SignUpViewController()
         let router = SignUpRouter()
         
-        let networkService = NetworkService()
+        let networkService = NetworkService.shared
         let interactor = SignUpInteractor(networkService: networkService)
         
         let presenter = SignUpPresenter(viewController: view, router: router, interactor: interactor)

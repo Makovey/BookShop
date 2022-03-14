@@ -20,11 +20,11 @@ class LoginPresenter {
 }
 
 extension LoginPresenter: LoginViewOutput {
-    func didLoginButtonTapped(email: String?, password: String?) {
-        if email!.isEmpty || password!.isEmpty {
+    func didLoginButtonTapped(email: String, password: String) {
+        if email.isEmpty || password.isEmpty {
             viewController?.didTextFieldsEmpty()
         } else {
-            let loginData = LoginDTO(email: email!, password: password!)
+            let loginData = LoginDTO(email: email, password: password)
             interactor.loginAccountWith(loginData: loginData)
         }
         
@@ -32,13 +32,12 @@ extension LoginPresenter: LoginViewOutput {
 }
 
 extension LoginPresenter: LoginInteractorOutput {
-    func checkLoginResponse(loginResponse: ConfirmUserDTO?) {
-        if let loginResponse = loginResponse {
-            router.openHomeScreen(name: loginResponse.username)
-        } else {
-            // func with error
-            print("Login response = nil")
-        }
+    func errorFromService(error: Failure) {
+        viewController?.showErrorFromService(error: error)
+    }
+    
+    func getLoginResponse(loginResponse: ConfirmUserDTO) {
+        router.openHomeScreen(name: loginResponse.username)
     }
     
 }

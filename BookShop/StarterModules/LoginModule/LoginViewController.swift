@@ -10,17 +10,18 @@ import UIKit
 
 protocol LoginViewInput: AnyObject {
     func didTextFieldsEmpty()
+    func showErrorFromService(error: Failure)
 }
 
 protocol LoginViewOutput {
-    func didLoginButtonTapped(email: String?, password: String?)
+    func didLoginButtonTapped(email: String, password: String)
 }
 
 class LoginViewController: UIViewController {
     var output: LoginViewOutput?
-
+    
     let logoImage = UIImageView()
-
+    
     let welcomeLabel = Label(withText: "Welcome".localized(), fontSize: 24)
     var descriptionLabel: Label {
         let descriptionLabel = Label(withText: "Please, login to start your shopping".localized(), fontSize: Constant.descriptionFontSize)
@@ -50,7 +51,7 @@ class LoginViewController: UIViewController {
         emailStack.translatesAutoresizingMaskIntoConstraints = false
         return emailStack
     }()
-
+    
     let passwordLabel = Label(withText: "Password".localized(), fontSize: Constant.titleFontSize)
     let passwordTextField = TextField()
     
@@ -58,39 +59,35 @@ class LoginViewController: UIViewController {
         passwordStack = UIStackView(arrangedSubviews: [passwordLabel, passwordTextField])
         passwordStack.axis = .vertical
         passwordStack.distribution = .equalSpacing
-
+        
         passwordStack.translatesAutoresizingMaskIntoConstraints = false
         return passwordStack
     }()
-    
-    var errorLabels: [String: Label] =
-    ["email": Label(withText: "Please, fill your email".localized(), fontSize: Constant.descriptionFontSize),
-     "password": Label(withText: "Please, fill your password".localized(), fontSize: Constant.descriptionFontSize)]
-    
+        
     let loginButton = Button(title: "Login".localized())
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .systemBackground
-
+        
         emailTextField.delegate = self
         passwordTextField.delegate = self
         createDismissKeyboardTapGesture()
-
+        
         configureLogoImage()
         configureWelcomeLabels()
         configureEmailStack()
         configurePasswordStack()
         configureLoginButton()
     }
-
+    
     private func configureLogoImage() {
         view.addSubview(logoImage)
-
+        
         logoImage.translatesAutoresizingMaskIntoConstraints = false
         logoImage.image = UIImage(named: "logo")
-
+        
         NSLayoutConstraint.activate([
             logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.topDistance),
             logoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -98,18 +95,18 @@ class LoginViewController: UIViewController {
             logoImage.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
-
+    
     private func configureWelcomeLabels() {
         view.addSubview(labelsStack)
-
+        
         NSLayoutConstraint.activate([
             labelsStack.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: Constant.topDistance),
-            labelsStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
-            labelsStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            labelsStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            labelsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             labelsStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
-
+    
     private func configureEmailStack() {
         view.addSubview(emailStack)
         
@@ -120,12 +117,12 @@ class LoginViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             emailStack.topAnchor.constraint(equalTo: labelsStack.bottomAnchor, constant: 50),
-            emailStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
-            emailStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            emailStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            emailStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             emailStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
-
+    
     private func configurePasswordStack() {
         view.addSubview(passwordStack)
         
@@ -135,21 +132,21 @@ class LoginViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             passwordStack.topAnchor.constraint(equalTo: emailStack.bottomAnchor, constant: Constant.topDistance),
-            passwordStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
-            passwordStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            passwordStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            passwordStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             passwordStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
-
+        
     }
-
+    
     private func configureLoginButton() {
         view.addSubview(loginButton)
-
+        
         loginButton.backgroundColor = .label
         loginButton.setTitleColor(.systemBackground, for: .normal)
-
+        
         loginButton.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
-
+        
         NSLayoutConstraint.activate([
             loginButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.topDistance),
             loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
@@ -157,27 +154,14 @@ class LoginViewController: UIViewController {
             loginButton.heightAnchor.constraint(equalToConstant: Constant.bottomHeight)
         ])
     }
-
+    
     @objc private func loginAction() {
-        output?.didLoginButtonTapped(email: emailTextField.text, password: passwordTextField.text)
+        output?.didLoginButtonTapped(email: emailTextField.text ?? "", password: passwordTextField.text ?? "")
     }
-
+    
     private func createDismissKeyboardTapGesture() {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
-    }
-    
-    private func configureErrorLabel(label: Label, to textField: TextField) {
-        label.textColor = .systemRed
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(label)
-        
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: Constant.errorsDistance),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance)
-        ])
     }
     
 }
@@ -198,9 +182,9 @@ extension LoginViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case emailTextField:
-            view.subviews.filter { $0 == errorLabels["email"]}.first?.removeFromSuperview()
+            view.subviews.filter { $0.tag == Failure.emailEmpty.rawValue }.first?.removeFromSuperview()
         case passwordTextField:
-            view.subviews.filter { $0 == errorLabels["password"]}.first?.removeFromSuperview()
+            view.subviews.filter { $0.tag == Failure.passwordEmpty.rawValue }.first?.removeFromSuperview()
         default:
             fatalError("Not found textField: - \(textField)")
         }
@@ -208,13 +192,17 @@ extension LoginViewController: UITextFieldDelegate {
 }
 
 extension LoginViewController: LoginViewInput {
+    func showErrorFromService(error: Failure) {
+        Failure.showErrorBanner(text: error.title)
+    }
+    
     func didTextFieldsEmpty() {
         for textField in [emailTextField, passwordTextField] where textField.text!.isEmpty {
             switch textField {
             case emailTextField:
-                configureErrorLabel(label: errorLabels["email"]!, to: textField)
+                Failure.configureAndAttchToTextField(errorLabel: .emailEmpty, attachTo: textField, inView: view)
             case passwordTextField:
-                configureErrorLabel(label: errorLabels["password"]!, to: textField)
+                Failure.configureAndAttchToTextField(errorLabel: .passwordEmpty, attachTo: textField, inView: view)
             default:
                 fatalError("Not found textField: - \(textField)")
             }

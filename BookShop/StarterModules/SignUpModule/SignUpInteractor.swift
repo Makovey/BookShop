@@ -12,7 +12,8 @@ protocol SignUpInteractorInput {
 }
 
 protocol SignUpInteractorOutput {
-    func checkSignUpResponse(signUpResponse: ConfirmUserDTO?)
+    func getSignUpResponse(signUpResponse: ConfirmUserDTO)
+    func errorFromService(error: Failure)
 }
 
 class SignUpInteractor {
@@ -27,9 +28,24 @@ class SignUpInteractor {
 
 extension SignUpInteractor: SignUpInteractorInput {
     func signUpWith(signUpData: SignUpDTO) {
-        networkService.registerWith(signUpData: signUpData) { data in
+        networkService.signUpWith(signUpData: signUpData) { [weak self] result in
             DispatchQueue.main.async {
-                self.output?.checkSignUpResponse(signUpResponse: data)
+                switch result {
+                case .success(let data):
+                    self?.output?.getSignUpResponse(signUpResponse: data)
+                    self?.networkService.saveToken(from: data)
+                case .failure(let networkError):
+                    switch networkError {
+                    case .serverError:
+                        self?.output?.errorFromService(error: .serverError)
+                    case .unauthorizeError:
+                        self?.output?.errorFromService(error: .unauthorized)
+                    case .incorrectDataError:
+                        self?.output?.errorFromService(error: .incorrectData)
+                    case .noInternetConnectionError:
+                        self?.output?.errorFromService(error: .noInternetConnection)
+                    }
+                }
             }
         }
     }

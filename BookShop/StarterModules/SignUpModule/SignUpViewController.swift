@@ -7,10 +7,14 @@
 
 import UIKit
 
-protocol SignUpViewInput: AnyObject {}
+protocol SignUpViewInput: AnyObject {
+    func didTextFieldsEmpty()
+    func didPasswordsNotMatch()
+    func showErrorBanner(error: Failure)
+}
 
 protocol SignUpViewOutput {
-    func didSignUpButtonTapped(email: String?, username: String?, password: String?)
+    func didSignUpButtonTapped(email: String, username: String, password: String, confirmPassword: String)
 }
 
 class SignUpViewController: UIViewController {
@@ -124,8 +128,8 @@ class SignUpViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             labelsStack.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: Constant.topDistance),
-            labelsStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
-            labelsStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            labelsStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            labelsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             labelsStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
@@ -138,8 +142,8 @@ class SignUpViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             usernameStack.topAnchor.constraint(equalTo: labelsStack.bottomAnchor, constant: 50),
-            usernameStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
-            usernameStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            usernameStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            usernameStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             usernameStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
@@ -154,8 +158,8 @@ class SignUpViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             emailStack.topAnchor.constraint(equalTo: usernameStack.bottomAnchor, constant: Constant.topDistance),
-            emailStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
-            emailStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            emailStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            emailStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             emailStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
@@ -169,8 +173,8 @@ class SignUpViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             passwordStack.topAnchor.constraint(equalTo: emailStack.bottomAnchor, constant: Constant.topDistance),
-            passwordStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
-            passwordStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            passwordStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            passwordStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             passwordStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
@@ -184,8 +188,8 @@ class SignUpViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             passwordConfirmStack.topAnchor.constraint(equalTo: passwordStack.bottomAnchor, constant: Constant.topDistance),
-            passwordConfirmStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
-            passwordConfirmStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            passwordConfirmStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            passwordConfirmStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             passwordConfirmStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
@@ -207,7 +211,10 @@ class SignUpViewController: UIViewController {
     }
 
     @objc private func signUpAction() {
-        output?.didSignUpButtonTapped(email: emailTextField.text, username: usernameTextField.text, password: passwordTextField.text)
+        output?.didSignUpButtonTapped(email: emailTextField.text ?? "",
+                                      username: usernameTextField.text ?? "",
+                                      password: passwordTextField.text ?? "",
+                                      confirmPassword: passwordConfirmTextField.text ?? "")
     }
 
     private func createDismissKeyboardTapGesture() {
@@ -233,9 +240,49 @@ extension SignUpViewController: UITextFieldDelegate {
 
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case usernameTextField:
+            view.subviews.filter { $0.tag == Failure.usernameEmpty.rawValue }.first?.removeFromSuperview()
+        case emailTextField:
+            view.subviews.filter { $0.tag == Failure.emailEmpty.rawValue }.first?.removeFromSuperview()
+        case passwordTextField:
+            view.subviews.filter { $0.tag == Failure.passwordEmpty.rawValue }.first?.removeFromSuperview()
+        case passwordConfirmTextField:
+            view.subviews.filter { $0.tag == Failure.confirmPasswordEmpty.rawValue }.first?.removeFromSuperview()
+            view.subviews.filter { $0.tag == Failure.passwordsDontMatch.rawValue }.first?.removeFromSuperview()
+        default:
+            fatalError("Not found textField: - \(textField)")
+        }
+    }
 
 }
 
 extension SignUpViewController: SignUpViewInput {
-
+    func didPasswordsNotMatch() {
+        Failure.configureAndAttchToTextField(errorLabel: .passwordsDontMatch, attachTo: passwordConfirmTextField, inView: view)
+    }
+    
+    func didTextFieldsEmpty() {
+        for textField in [emailTextField, passwordTextField, usernameTextField, passwordConfirmTextField] where textField.text!.isEmpty {
+            switch textField {
+            case emailTextField:
+                Failure.configureAndAttchToTextField(errorLabel: .emailEmpty, attachTo: textField, inView: view)
+            case passwordTextField:
+                Failure.configureAndAttchToTextField(errorLabel: .passwordEmpty, attachTo: textField, inView: view)
+            case usernameTextField:
+                Failure.configureAndAttchToTextField(errorLabel: .usernameEmpty, attachTo: textField, inView: view)
+            case passwordConfirmTextField:
+                Failure.configureAndAttchToTextField(errorLabel: .confirmPasswordEmpty, attachTo: textField, inView: view)
+            default:
+                fatalError("Not found textField: - \(textField)")
+            }
+        }
+    }
+    
+    func showErrorBanner(error: Failure) {
+        Failure.showErrorBanner(text: error.title)
+    }
+    
 }

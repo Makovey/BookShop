@@ -8,69 +8,102 @@
 import Foundation
 
 protocol NetworkServiceProtocol {
-    func authenticateWith(loginData: LoginDTO, completion:@escaping((ConfirmUserDTO?) -> Void))
-    func registerWith(signUpData: SignUpDTO, competion:@escaping((ConfirmUserDTO?)) -> Void)
+    func loginWith(loginData: LoginDTO, completion: @escaping (Result<ConfirmUserDTO, NetworkError>) -> Void)
+    func signUpWith(signUpData: SignUpDTO, competion: @escaping (Result<ConfirmUserDTO, NetworkError>) -> Void)
+    func saveToken(from data: ConfirmUserDTO)
 }
 
-struct NetworkService: NetworkServiceProtocol {
+class NetworkService: NetworkServiceProtocol {
+
+    static let shared = NetworkService()
+    
+    private init() {}
     
     var token: String?
     
-    func authenticateWith(loginData: LoginDTO, completion:@escaping((ConfirmUserDTO?) -> Void)) {
-        performPostRequest(withUrl: URL(string: URLStorage.login)!, data: loginData) { (response: ConfirmUserDTO?) in
-            completion(response)
+    func loginWith(loginData: LoginDTO, completion: @escaping (Result<ConfirmUserDTO, NetworkError>) -> Void) {
+        guard let url = URL(string: URLStorage.login) else { return }
+        
+        performPostRequest(withUrl: url, isTokenNeeded: false, data: loginData) { result in
+            completion(result)
         }
     }
     
-    func registerWith(signUpData: SignUpDTO, competion: @escaping ((ConfirmUserDTO?)) -> Void) {
-        performPostRequest(withUrl: URL(string: URLStorage.register)!, data: signUpData) { (response: ConfirmUserDTO?) in
-            competion(response)
+    func signUpWith(signUpData: SignUpDTO, competion: @escaping (Result<ConfirmUserDTO, NetworkError>) -> Void) {
+        guard let url = URL(string: URLStorage.register) else { return }
+    
+        performPostRequest(withUrl: url, isTokenNeeded: false, data: signUpData) { result in
+                competion(result)
         }
     }
     
     private func performPostRequest<RequestModel: Codable, ResponseModel: Codable>(
         withUrl url: URL,
+        isTokenNeeded: Bool,
         data: RequestModel,
-        completion:@escaping((ResponseModel?) -> Void)) {
+        completion: @escaping (Result<ResponseModel, NetworkError>) -> Void) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.httpBody = try? JSONEncoder().encode(data)
             
-            if let token = token {
+            if isTokenNeeded {
+                guard let token = token else {
+                    completion(.failure(.unauthorizeError))
+                    return
+                }
                 request.setValue(token, forHTTPHeaderField: "Authorization")
             }
             
-            URLSession.shared.dataTask(with: request) { data, _, error in
+            URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    completion(nil)
+                    completion(.failure(.noInternetConnectionError))
                     print("Got error in POST method method cause: \(error)")
                     return
                 }
                 
-                if let safetyData = data {
-                    if !safetyData.isEmpty {
-                        let paresedData: ResponseModel? = parseJSON(safetyData)
-                        completion(paresedData)
-                        return
-                    }
-                    
-                    completion(nil)
+                if let response = response as? HTTPURLResponse, !(200...299).contains(response.statusCode) {
+                    completion(.failure(.serverError))
                     return
                 }
                 
+                if let safetyData = data, !safetyData.isEmpty {
+                    let resultDecoding: Result<ResponseModel, NetworkError> = self.parseJSON(safetyData)
+                    switch resultDecoding {
+                    case.success(let data):
+                        completion(.success(data))
+                        return
+                    case .failure(let error):
+                        completion(.failure(error))
+                        return
+                    }
+                }
             }.resume()
+            
         }
     
-    private func parseJSON<T: Codable>(_ data: Data) -> T? {
-        var parsedResponse: T?
+    private func parseJSON<T: Codable>(_ data: Data) -> Result<T, NetworkError> {
+        var parsedResponse: T
         
         let decoder = JSONDecoder()
         do {
             parsedResponse = try decoder.decode(T.self, from: data)
         } catch {
             print("Can't parse JSON cause: \(error)")
+            return .failure(.incorrectDataError)
         }
         
-        return parsedResponse
+        return .success(parsedResponse)
     }
+    
+    func saveToken(from data: ConfirmUserDTO) {
+        token = data.token
+    }
+
+}
+
+enum NetworkError: Error {
+    case serverError
+    case unauthorizeError
+    case incorrectDataError
+    case noInternetConnectionError
 }

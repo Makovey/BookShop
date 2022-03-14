@@ -20,12 +20,14 @@ class SignUpPresenter {
 }
 
 extension SignUpPresenter: SignUpViewOutput {
-    func didSignUpButtonTapped(email: String?, username: String?, password: String?) {
-        if email!.isEmpty || username!.isEmpty  || password!.isEmpty {
-            // func with validation
-            print("username, emailField or passwordField are empty")
+    
+    func didSignUpButtonTapped(email: String, username: String, password: String, confirmPassword: String) {
+        if email.isEmpty || username.isEmpty  || password.isEmpty || confirmPassword.isEmpty {
+            viewController?.didTextFieldsEmpty()
+        } else if password != confirmPassword {
+            viewController?.didPasswordsNotMatch()
         } else {
-            let signUpData = SignUpDTO(email: email!, username: username!, password: password!)
+            let signUpData = SignUpDTO(email: email, username: username, password: password)
             interactor.signUpWith(signUpData: signUpData)
         }
     }
@@ -33,13 +35,12 @@ extension SignUpPresenter: SignUpViewOutput {
 }
 
 extension SignUpPresenter: SignUpInteractorOutput {
-    func checkSignUpResponse(signUpResponse: ConfirmUserDTO?) {
-        if let signUpResponse = signUpResponse {
-            router.openHomeScreen(name: signUpResponse.username)
-        } else {
-            // func with error
-            print("SignUp response = nil")
-        }
+    func errorFromService(error: Failure) {
+        viewController?.showErrorBanner(error: error)
+    }
+    
+    func getSignUpResponse(signUpResponse: ConfirmUserDTO) {
+        router.openHomeScreen(name: signUpResponse.username)
     }
     
 }

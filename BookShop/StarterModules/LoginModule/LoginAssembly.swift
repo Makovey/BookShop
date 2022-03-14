@@ -12,7 +12,7 @@ class LoginAssembly {
         let view = LoginViewController()
         let router = LoginRouter()
         
-        let networkService = NetworkService()
+        let networkService = NetworkService.shared
         let interactor = LoginInteractor(networkService: networkService)
         
         let presenter = LoginPresenter(viewController: view, router: router, interactor: interactor)
