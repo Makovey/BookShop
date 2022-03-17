@@ -13,7 +13,7 @@ protocol LoginInteractorInput {
 
 protocol LoginInteractorOutput: AnyObject {
     func getLoginResponse(loginResponse: ConfirmUserDTO)
-    func errorFromService(error: Failure)
+    func errorFromService(error: ServiceError)
 }
 
 class LoginInteractor {
@@ -35,16 +35,7 @@ extension LoginInteractor: LoginInteractorInput {
                     self?.output?.getLoginResponse(loginResponse: data)
                     self?.networkService.saveToken(from: data)
                 case .failure(let networkError):
-                    switch networkError {
-                    case .serverError:
-                        self?.output?.errorFromService(error: .serverError)
-                    case .unauthorizeError:
-                        self?.output?.errorFromService(error: .unauthorized)
-                    case .incorrectDataError:
-                        self?.output?.errorFromService(error: .incorrectData)
-                    case .noInternetConnectionError:
-                        self?.output?.errorFromService(error: .noInternetConnection)
-                    }
+                    self?.output?.errorFromService(error: networkError.failure)
                 }
             }
         }

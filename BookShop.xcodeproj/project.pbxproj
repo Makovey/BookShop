@@ -24,7 +24,7 @@
 		5E10E83427C96B1A0009BBA7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E10E83327C96B1A0009BBA7 /* Extensions.swift */; };
 		5E10E83727C96C310009BBA7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E10E83927C96C310009BBA7 /* Localizable.strings */; };
 		5E10E83D27C974100009BBA7 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E10E83C27C974100009BBA7 /* Constant.swift */; };
-		5E1A878227DE7C4C0028F459 /* Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1A878127DE7C4C0028F459 /* Failure.swift */; };
+		5E1A878227DE7C4C0028F459 /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1A878127DE7C4C0028F459 /* ServiceError.swift */; };
 		5E2E8BA027D00172002AA85E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E8B9F27D00172002AA85E /* NetworkService.swift */; };
 		5E71668027BEB07800460552 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E71667F27BEB07800460552 /* Launch Screen.storyboard */; };
 		5E71668327BEE5ED00460552 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E71668227BEE5ED00460552 /* SignUpViewController.swift */; };
@@ -46,6 +46,8 @@
 		5EABDBCC27CFC4C7001F1F97 /* ConfirmUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EABDBCB27CFC4C7001F1F97 /* ConfirmUserDTO.swift */; };
 		5ED6200B27D66F9700190C22 /* SignUpDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED6200A27D66F9700190C22 /* SignUpDTO.swift */; };
 		5EEDAB8827D1287800BB9FA2 /* URLStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEDAB8727D1287800BB9FA2 /* URLStorage.swift */; };
+		5EF6248027E3B96900C46366 /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF6247F27E3B96900C46366 /* ErrorManager.swift */; };
+		5EF6248327E3C8EE00C46366 /* ClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF6248227E3C8EE00C46366 /* ClientError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,7 +86,7 @@
 		5E10E83827C96C310009BBA7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5E10E83B27C96F900009BBA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5E10E83C27C974100009BBA7 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
-		5E1A878127DE7C4C0028F459 /* Failure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Failure.swift; sourceTree = "<group>"; };
+		5E1A878127DE7C4C0028F459 /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
 		5E2E8B9F27D00172002AA85E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		5E71667F27BEB07800460552 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5E71668227BEE5ED00460552 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,8 @@
 		5EABDBCB27CFC4C7001F1F97 /* ConfirmUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmUserDTO.swift; sourceTree = "<group>"; };
 		5ED6200A27D66F9700190C22 /* SignUpDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDTO.swift; sourceTree = "<group>"; };
 		5EEDAB8727D1287800BB9FA2 /* URLStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLStorage.swift; sourceTree = "<group>"; };
+		5EF6247F27E3B96900C46366 /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
+		5EF6248227E3C8EE00C46366 /* ClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,10 +186,10 @@
 		5E10E83227C96AEB0009BBA7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5EF6248127E3C84B00C46366 /* Errors */,
 				5E10E83327C96B1A0009BBA7 /* Extensions.swift */,
 				5E10E83C27C974100009BBA7 /* Constant.swift */,
 				5EEDAB8727D1287800BB9FA2 /* URLStorage.swift */,
-				5E1A878127DE7C4C0028F459 /* Failure.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -304,6 +308,16 @@
 				5EABDBCB27CFC4C7001F1F97 /* ConfirmUserDTO.swift */,
 			);
 			path = StartersDTO;
+			sourceTree = "<group>";
+		};
+		5EF6248127E3C84B00C46366 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				5EF6247F27E3B96900C46366 /* ErrorManager.swift */,
+				5E1A878127DE7C4C0028F459 /* ServiceError.swift */,
+				5EF6248227E3C8EE00C46366 /* ClientError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,7 +480,7 @@
 				5E89AD0327D2AF5900276B01 /* HomePresenter.swift in Sources */,
 				5E71668527BEE5FB00460552 /* SignUpPresenter.swift in Sources */,
 				5E0A544A27BC3E0900FCA23D /* LoginViewController.swift in Sources */,
-				5E1A878227DE7C4C0028F459 /* Failure.swift in Sources */,
+				5E1A878227DE7C4C0028F459 /* ServiceError.swift in Sources */,
 				5EEDAB8827D1287800BB9FA2 /* URLStorage.swift in Sources */,
 				5E0A544C27BC3E9700FCA23D /* LoginAssembly.swift in Sources */,
 				5E10E83D27C974100009BBA7 /* Constant.swift in Sources */,
@@ -477,7 +491,9 @@
 				5E89ACFD27D2AF3A00276B01 /* HomeAssembly.swift in Sources */,
 				5E0A543D27BABD2100FCA23D /* StartViewController.swift in Sources */,
 				5E0A544527BABD9600FCA23D /* StartAssembly.swift in Sources */,
+				5EF6248027E3B96900C46366 /* ErrorManager.swift in Sources */,
 				5E10E83427C96B1A0009BBA7 /* Extensions.swift in Sources */,
+				5EF6248327E3C8EE00C46366 /* ClientError.swift in Sources */,
 				5E71668327BEE5ED00460552 /* SignUpViewController.swift in Sources */,
 				5E0A544E27BC3F1D00FCA23D /* LoginPresenter.swift in Sources */,
 				5E0A545627BC46BC00FCA23D /* Label.swift in Sources */,

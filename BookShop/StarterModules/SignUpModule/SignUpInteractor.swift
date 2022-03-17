@@ -13,7 +13,7 @@ protocol SignUpInteractorInput {
 
 protocol SignUpInteractorOutput {
     func getSignUpResponse(signUpResponse: ConfirmUserDTO)
-    func errorFromService(error: Failure)
+    func errorFromService(error: ServiceError)
 }
 
 class SignUpInteractor {
@@ -35,16 +35,7 @@ extension SignUpInteractor: SignUpInteractorInput {
                     self?.output?.getSignUpResponse(signUpResponse: data)
                     self?.networkService.saveToken(from: data)
                 case .failure(let networkError):
-                    switch networkError {
-                    case .serverError:
-                        self?.output?.errorFromService(error: .serverError)
-                    case .unauthorizeError:
-                        self?.output?.errorFromService(error: .unauthorized)
-                    case .incorrectDataError:
-                        self?.output?.errorFromService(error: .incorrectData)
-                    case .noInternetConnectionError:
-                        self?.output?.errorFromService(error: .noInternetConnection)
-                    }
+                    self?.output?.errorFromService(error: networkError.failure)
                 }
             }
         }

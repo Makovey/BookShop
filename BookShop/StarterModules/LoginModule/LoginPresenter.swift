@@ -11,7 +11,7 @@ class LoginPresenter {
     private weak var viewController: LoginViewInput?
     private let router: LoginRouterInput
     private let interactor: LoginInteractorInput
-
+    
     init(viewController: LoginViewInput, router: LoginRouterInput, interactor: LoginInteractorInput) {
         self.viewController = viewController
         self.router = router
@@ -20,7 +20,7 @@ class LoginPresenter {
 }
 
 extension LoginPresenter: LoginViewOutput {
-    func didLoginButtonTapped(email: String, password: String) {
+    func loginButtonTapped(email: String, password: String) {
         if email.isEmpty || password.isEmpty {
             viewController?.didTextFieldsEmpty()
         } else {
@@ -32,7 +32,7 @@ extension LoginPresenter: LoginViewOutput {
 }
 
 extension LoginPresenter: LoginInteractorOutput {
-    func errorFromService(error: Failure) {
+    func errorFromService(error: ServiceError) {
         viewController?.showErrorFromService(error: error)
     }
     

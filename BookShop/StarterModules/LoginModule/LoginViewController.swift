@@ -10,11 +10,11 @@ import UIKit
 
 protocol LoginViewInput: AnyObject {
     func didTextFieldsEmpty()
-    func showErrorFromService(error: Failure)
+    func showErrorFromService(error: ServiceError)
 }
 
 protocol LoginViewOutput {
-    func didLoginButtonTapped(email: String, password: String)
+    func loginButtonTapped(email: String, password: String)
 }
 
 class LoginViewController: UIViewController {
@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
         passwordStack.translatesAutoresizingMaskIntoConstraints = false
         return passwordStack
     }()
-        
+    
     let loginButton = Button(title: "Login".localized())
     
     override func viewDidLoad() {
@@ -156,7 +156,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func loginAction() {
-        output?.didLoginButtonTapped(email: emailTextField.text ?? "", password: passwordTextField.text ?? "")
+        output?.loginButtonTapped(email: emailTextField.text ?? "", password: passwordTextField.text ?? "")
     }
     
     private func createDismissKeyboardTapGesture() {
@@ -173,38 +173,58 @@ extension LoginViewController: UITextFieldDelegate {
             passwordTextField.becomeFirstResponder()
         case passwordTextField:
             loginAction()
-        default:
-            fatalError("Not found textField: - \(textField)")
+        default: break
         }
+        
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case emailTextField:
-            view.subviews.filter { $0.tag == Failure.emailEmpty.rawValue }.first?.removeFromSuperview()
+            UIView.animate(withDuration: 0.3) {
+                self.emailTextField.bottomBorder.backgroundColor = .systemYellow
+            }
+            
+            view.subviews.first(where: { $0.tag == ClientError.emailEmpty.rawValue })?.removeFromSuperview()
         case passwordTextField:
-            view.subviews.filter { $0.tag == Failure.passwordEmpty.rawValue }.first?.removeFromSuperview()
-        default:
-            fatalError("Not found textField: - \(textField)")
+            UIView.animate(withDuration: 0.3) {
+                self.passwordTextField.bottomBorder.backgroundColor = .systemYellow
+            }
+            
+            view.subviews.first(where: { $0.tag == ClientError.passwordEmpty.rawValue })?.removeFromSuperview()
+        default: break
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case emailTextField:
+            UIView.animate(withDuration: 0.3) {
+                self.emailTextField.bottomBorder.backgroundColor = .lightGray
+            }
+        case passwordTextField:
+            UIView.animate(withDuration: 0.3) {
+                self.passwordTextField.bottomBorder.backgroundColor = .lightGray
+            }
+        default: break
         }
     }
 }
 
 extension LoginViewController: LoginViewInput {
-    func showErrorFromService(error: Failure) {
-        Failure.showErrorBanner(text: error.title)
+    func showErrorFromService(error: ServiceError) {
+        ErrorManager.showErrorBanner(text: error.title)
     }
     
     func didTextFieldsEmpty() {
         for textField in [emailTextField, passwordTextField] where textField.text!.isEmpty {
             switch textField {
             case emailTextField:
-                Failure.configureAndAttchToTextField(errorLabel: .emailEmpty, attachTo: textField, inView: view)
+                ErrorManager.configureAndAttchToTextField(errorLabel: .emailEmpty, attachTo: textField, inView: view)
             case passwordTextField:
-                Failure.configureAndAttchToTextField(errorLabel: .passwordEmpty, attachTo: textField, inView: view)
-            default:
-                fatalError("Not found textField: - \(textField)")
+                ErrorManager.configureAndAttchToTextField(errorLabel: .passwordEmpty, attachTo: textField, inView: view)
+            default: break
             }
         }
     }

@@ -14,7 +14,7 @@ protocol NetworkServiceProtocol {
 }
 
 class NetworkService: NetworkServiceProtocol {
-
+    
     static let shared = NetworkService()
     
     private init() {}
@@ -31,9 +31,9 @@ class NetworkService: NetworkServiceProtocol {
     
     func signUpWith(signUpData: SignUpDTO, competion: @escaping (Result<ConfirmUserDTO, NetworkError>) -> Void) {
         guard let url = URL(string: URLStorage.register) else { return }
-    
+        
         performPostRequest(withUrl: url, isTokenNeeded: false, data: signUpData) { result in
-                competion(result)
+            competion(result)
         }
     }
     
@@ -71,16 +71,15 @@ class NetworkService: NetworkServiceProtocol {
                     switch resultDecoding {
                     case.success(let data):
                         completion(.success(data))
-                        return
                     case .failure(let error):
                         completion(.failure(error))
-                        return
                     }
                 }
             }.resume()
             
         }
     
+    // throw
     private func parseJSON<T: Codable>(_ data: Data) -> Result<T, NetworkError> {
         var parsedResponse: T
         
@@ -98,7 +97,7 @@ class NetworkService: NetworkServiceProtocol {
     func saveToken(from data: ConfirmUserDTO) {
         token = data.token
     }
-
+    
 }
 
 enum NetworkError: Error {
@@ -106,4 +105,19 @@ enum NetworkError: Error {
     case unauthorizeError
     case incorrectDataError
     case noInternetConnectionError
+}
+
+extension NetworkError {
+    var failure: ServiceError {
+        switch self {
+        case .serverError:
+            return .serverError
+        case .unauthorizeError:
+            return .unauthorized
+        case .incorrectDataError:
+            return .incorrectData
+        case .noInternetConnectionError:
+            return .noInternetConnection
+        }
+    }
 }

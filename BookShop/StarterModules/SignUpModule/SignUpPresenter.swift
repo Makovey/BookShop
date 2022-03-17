@@ -35,7 +35,7 @@ extension SignUpPresenter: SignUpViewOutput {
 }
 
 extension SignUpPresenter: SignUpInteractorOutput {
-    func errorFromService(error: Failure) {
+    func errorFromService(error: ServiceError) {
         viewController?.showErrorBanner(error: error)
     }
     

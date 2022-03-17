@@ -1,49 +1,14 @@
 //
-//  Errors.swift
+//  ErrorManager.swift
 //  BookShop
 //
-//  Created by MAKOVEY Vladislav on 13.03.2022.
+//  Created by MAKOVEY Vladislav on 17.03.2022.
 //
 
-import Foundation
 import UIKit
 
-// название временное, что-то я так и не придумал ничего годного :(
-enum Failure: Int {
-    case emailEmpty = 1
-    case passwordEmpty
-    case confirmPasswordEmpty
-    case usernameEmpty
-    case passwordsDontMatch
-    case serverError
-    case incorrectData
-    case unauthorized
-    case noInternetConnection
-    
-    var title: String {
-        switch self {
-        case .emailEmpty:
-            return "Please, fill your email".localized()
-        case .passwordEmpty:
-            return "Please, fill your password".localized()
-        case .usernameEmpty:
-            return "Please, fill your username".localized()
-        case .confirmPasswordEmpty:
-            return "Please, confirm your password".localized()
-        case .serverError:
-            return "Something went wrong".localized()
-        case .incorrectData:
-            return "Incorrect login or password".localized()
-        case .unauthorized:
-            return "Please, login again and try again".localized()
-        case .noInternetConnection:
-            return "No internet connection".localized()
-        case .passwordsDontMatch:
-            return "Your password do not match".localized()
-        }
-    }
-    
-    static func configureAndAttchToTextField(errorLabel: Failure, attachTo textField: TextField, inView view: UIView) {
+struct ErrorManager {
+    static func configureAndAttchToTextField(errorLabel: ClientError, attachTo textField: TextField, inView view: UIView) {
         let label = Label(withText: errorLabel.title, fontSize: Constant.descriptionFontSize)
         label.tag = errorLabel.rawValue
         
@@ -59,7 +24,6 @@ enum Failure: Int {
         ])
     }
     
-    // честно слизано со SO, если есть идеи как сделать его более чистым и понятным...
     static func showErrorBanner(text: String) {
         let container = UIView()
         container.backgroundColor = UIColor.systemRed

@@ -10,7 +10,7 @@ import UIKit
 protocol SignUpViewInput: AnyObject {
     func didTextFieldsEmpty()
     func didPasswordsNotMatch()
-    func showErrorBanner(error: Failure)
+    func showErrorBanner(error: ServiceError)
 }
 
 protocol SignUpViewOutput {
@@ -169,7 +169,7 @@ class SignUpViewController: UIViewController {
         
         passwordTextField.returnKeyType = .next
         passwordTextField.isSecureTextEntry = true
-        passwordTextField.textContentType = .password
+        passwordTextField.textContentType = .name
 
         NSLayoutConstraint.activate([
             passwordStack.topAnchor.constraint(equalTo: emailStack.bottomAnchor, constant: Constant.topDistance),
@@ -184,7 +184,7 @@ class SignUpViewController: UIViewController {
         
         passwordConfirmTextField.returnKeyType = .go
         passwordConfirmTextField.isSecureTextEntry = true
-        passwordConfirmTextField.textContentType = .password
+        passwordConfirmTextField.textContentType = .name
 
         NSLayoutConstraint.activate([
             passwordConfirmStack.topAnchor.constraint(equalTo: passwordStack.bottomAnchor, constant: Constant.topDistance),
@@ -234,8 +234,8 @@ extension SignUpViewController: UITextFieldDelegate {
             passwordConfirmTextField.becomeFirstResponder()
         case passwordConfirmTextField:
             signUpAction()
-        default:
-            fatalError("Not found textField: - \(textField)")
+        default: break
+            
         }
 
         return true
@@ -244,16 +244,16 @@ extension SignUpViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case usernameTextField:
-            view.subviews.filter { $0.tag == Failure.usernameEmpty.rawValue }.first?.removeFromSuperview()
+            view.subviews.first(where: { $0.tag == ClientError.usernameEmpty.rawValue })?.removeFromSuperview()
         case emailTextField:
-            view.subviews.filter { $0.tag == Failure.emailEmpty.rawValue }.first?.removeFromSuperview()
+            view.subviews.first(where: { $0.tag == ClientError.emailEmpty.rawValue })?.removeFromSuperview()
         case passwordTextField:
-            view.subviews.filter { $0.tag == Failure.passwordEmpty.rawValue }.first?.removeFromSuperview()
+            view.subviews.first(where: { $0.tag == ClientError.passwordEmpty.rawValue })?.removeFromSuperview()
         case passwordConfirmTextField:
-            view.subviews.filter { $0.tag == Failure.confirmPasswordEmpty.rawValue }.first?.removeFromSuperview()
-            view.subviews.filter { $0.tag == Failure.passwordsDontMatch.rawValue }.first?.removeFromSuperview()
-        default:
-            fatalError("Not found textField: - \(textField)")
+            view.subviews.first(where: { $0.tag == ClientError.confirmPasswordEmpty.rawValue })?.removeFromSuperview()
+            view.subviews.first(where: { $0.tag == ClientError.passwordsDontMatch.rawValue })?.removeFromSuperview()
+        default: break
+            
         }
     }
 
@@ -261,28 +261,28 @@ extension SignUpViewController: UITextFieldDelegate {
 
 extension SignUpViewController: SignUpViewInput {
     func didPasswordsNotMatch() {
-        Failure.configureAndAttchToTextField(errorLabel: .passwordsDontMatch, attachTo: passwordConfirmTextField, inView: view)
+        ErrorManager.configureAndAttchToTextField(errorLabel: .passwordsDontMatch, attachTo: passwordConfirmTextField, inView: view)
     }
     
     func didTextFieldsEmpty() {
         for textField in [emailTextField, passwordTextField, usernameTextField, passwordConfirmTextField] where textField.text!.isEmpty {
             switch textField {
             case emailTextField:
-                Failure.configureAndAttchToTextField(errorLabel: .emailEmpty, attachTo: textField, inView: view)
+                ErrorManager.configureAndAttchToTextField(errorLabel: .emailEmpty, attachTo: textField, inView: view)
             case passwordTextField:
-                Failure.configureAndAttchToTextField(errorLabel: .passwordEmpty, attachTo: textField, inView: view)
+                ErrorManager.configureAndAttchToTextField(errorLabel: .passwordEmpty, attachTo: textField, inView: view)
             case usernameTextField:
-                Failure.configureAndAttchToTextField(errorLabel: .usernameEmpty, attachTo: textField, inView: view)
+                ErrorManager.configureAndAttchToTextField(errorLabel: .usernameEmpty, attachTo: textField, inView: view)
             case passwordConfirmTextField:
-                Failure.configureAndAttchToTextField(errorLabel: .confirmPasswordEmpty, attachTo: textField, inView: view)
-            default:
-                fatalError("Not found textField: - \(textField)")
+                ErrorManager.configureAndAttchToTextField(errorLabel: .confirmPasswordEmpty, attachTo: textField, inView: view)
+            default: break
+                
             }
         }
     }
     
-    func showErrorBanner(error: Failure) {
-        Failure.showErrorBanner(text: error.title)
+    func showErrorBanner(error: ServiceError) {
+        ErrorManager.showErrorBanner(text: error.title)
     }
     
 }
