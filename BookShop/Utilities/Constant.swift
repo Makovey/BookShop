@@ -14,6 +14,10 @@ enum Constant {
     static let stackHeight: CGFloat = 60
     static let bottomHeight: CGFloat = 50
     
-    static let topDistance: CGFloat = 40
+    static let topDistance: CGFloat = 30
     static let sideDistance: CGFloat = 25
+    
+    static let bannerSize: CGFloat = 40
+    
+    static let errorsDistance: CGFloat = 5
 }

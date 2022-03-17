@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class TextField: UITextField {
+    
+    let bottomBorder = UIView.init(frame: .zero)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +34,6 @@ class TextField: UITextField {
     }
 
     private func createBottomLine() {
-        let bottomBorder = UIView.init(frame: .zero)
         bottomBorder.backgroundColor = .lightGray
         bottomBorder.translatesAutoresizingMaskIntoConstraints = false
         addSubview(bottomBorder)

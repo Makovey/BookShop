@@ -7,9 +7,15 @@
 
 import UIKit
 
-protocol SignUpViewInput: AnyObject {}
+protocol SignUpViewInput: AnyObject {
+    func didTextFieldsEmpty()
+    func didPasswordsNotMatch()
+    func showErrorBanner(error: ServiceError)
+}
 
-protocol SignUpViewOutput {}
+protocol SignUpViewOutput {
+    func didSignUpButtonTapped(email: String, username: String, password: String, confirmPassword: String)
+}
 
 class SignUpViewController: UIViewController {
     var output: SignUpViewOutput?
@@ -34,14 +40,8 @@ class SignUpViewController: UIViewController {
     }()
 
     let usernameLabel = Label(withText: "Username".localized(), fontSize: 18)
-    var usernameTextField: TextField {
-        let usernameTextField = TextField()
-        usernameTextField.returnKeyType = .next
-        usernameTextField.textContentType = .name
-        
-        return usernameTextField
-    }
-    
+    var usernameTextField = TextField()
+
     lazy var usernameStack: UIStackView = {
         usernameStack = UIStackView(arrangedSubviews: [usernameLabel, usernameTextField])
         usernameStack.axis = .vertical
@@ -52,15 +52,7 @@ class SignUpViewController: UIViewController {
     }()
 
     let emailLabel = Label(withText: "Email".localized(), fontSize: 18)
-    var emailTextField: TextField {
-        let emailTextField = TextField()
-        emailTextField.autocapitalizationType = .none
-        emailTextField.returnKeyType = .next
-        emailTextField.keyboardType = .emailAddress
-        emailTextField.textContentType = .emailAddress
-        
-        return emailTextField
-    }
+    var emailTextField = TextField()
 
     lazy var emailStack: UIStackView = {
         let emailStack = UIStackView(arrangedSubviews: [emailLabel, emailTextField])
@@ -72,14 +64,7 @@ class SignUpViewController: UIViewController {
     }()
 
     let passwordLabel = Label(withText: "Password".localized(), fontSize: 18)
-    var passwordTextField: TextField {
-        let passwordTextField = TextField()
-        passwordTextField.returnKeyType = .next
-        passwordTextField.isSecureTextEntry = true
-        passwordTextField.textContentType = .password
-        
-        return passwordTextField
-    }
+    var passwordTextField = TextField()
     
     lazy var passwordStack: UIStackView = {
         passwordStack = UIStackView(arrangedSubviews: [passwordLabel, passwordTextField])
@@ -91,14 +76,7 @@ class SignUpViewController: UIViewController {
     }()
 
     let passwordConfirmLabel = Label(withText: "Confirm Password".localized(), fontSize: Constant.titleFontSize)
-    var passwordConfirmTextField: TextField {
-        let passwordConfirmTextField = TextField()
-        passwordConfirmTextField.returnKeyType = .go
-        passwordConfirmTextField.isSecureTextEntry = true
-        passwordConfirmTextField.textContentType = .password
-        
-        return passwordConfirmTextField
-    }
+    var passwordConfirmTextField = TextField()
     
     lazy var passwordConfirmStack: UIStackView = {
         passwordConfirmStack = UIStackView(arrangedSubviews: [passwordConfirmLabel, passwordConfirmTextField])
@@ -150,19 +128,22 @@ class SignUpViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             labelsStack.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: Constant.topDistance),
-            labelsStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
-            labelsStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            labelsStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            labelsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             labelsStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
 
     private func configureUsernameStack() {
         view.addSubview(usernameStack)
+        
+        usernameTextField.returnKeyType = .next
+        usernameTextField.textContentType = .name
 
         NSLayoutConstraint.activate([
             usernameStack.topAnchor.constraint(equalTo: labelsStack.bottomAnchor, constant: 50),
-            usernameStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
-            usernameStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            usernameStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            usernameStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             usernameStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
@@ -170,32 +151,45 @@ class SignUpViewController: UIViewController {
     private func configureEmailStack() {
         view.addSubview(emailStack)
         
+        emailTextField.autocapitalizationType = .none
+        emailTextField.returnKeyType = .next
+        emailTextField.keyboardType = .emailAddress
+        emailTextField.textContentType = .emailAddress
+        
         NSLayoutConstraint.activate([
             emailStack.topAnchor.constraint(equalTo: usernameStack.bottomAnchor, constant: Constant.topDistance),
-            emailStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
-            emailStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            emailStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            emailStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             emailStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
 
     private func configurePasswordStack() {
         view.addSubview(passwordStack)
+        
+        passwordTextField.returnKeyType = .next
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.textContentType = .name
 
         NSLayoutConstraint.activate([
             passwordStack.topAnchor.constraint(equalTo: emailStack.bottomAnchor, constant: Constant.topDistance),
-            passwordStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
-            passwordStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            passwordStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            passwordStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             passwordStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
 
     private func configurePasswordConfirmStack() {
         view.addSubview(passwordConfirmStack)
+        
+        passwordConfirmTextField.returnKeyType = .go
+        passwordConfirmTextField.isSecureTextEntry = true
+        passwordConfirmTextField.textContentType = .name
 
         NSLayoutConstraint.activate([
             passwordConfirmStack.topAnchor.constraint(equalTo: passwordStack.bottomAnchor, constant: Constant.topDistance),
-            passwordConfirmStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Constant.sideDistance),
-            passwordConfirmStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Constant.sideDistance),
+            passwordConfirmStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            passwordConfirmStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             passwordConfirmStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
         ])
     }
@@ -217,7 +211,10 @@ class SignUpViewController: UIViewController {
     }
 
     @objc private func signUpAction() {
-        print("Sign Up tapped")
+        output?.didSignUpButtonTapped(email: emailTextField.text ?? "",
+                                      username: usernameTextField.text ?? "",
+                                      password: passwordTextField.text ?? "",
+                                      confirmPassword: passwordConfirmTextField.text ?? "")
     }
 
     private func createDismissKeyboardTapGesture() {
@@ -237,15 +234,55 @@ extension SignUpViewController: UITextFieldDelegate {
             passwordConfirmTextField.becomeFirstResponder()
         case passwordConfirmTextField:
             signUpAction()
-        default:
-            fatalError("Not found textField: - \(textField)")
+        default: break
+            
         }
 
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case usernameTextField:
+            view.subviews.first(where: { $0.tag == ClientError.usernameEmpty.rawValue })?.removeFromSuperview()
+        case emailTextField:
+            view.subviews.first(where: { $0.tag == ClientError.emailEmpty.rawValue })?.removeFromSuperview()
+        case passwordTextField:
+            view.subviews.first(where: { $0.tag == ClientError.passwordEmpty.rawValue })?.removeFromSuperview()
+        case passwordConfirmTextField:
+            view.subviews.first(where: { $0.tag == ClientError.confirmPasswordEmpty.rawValue })?.removeFromSuperview()
+            view.subviews.first(where: { $0.tag == ClientError.passwordsDontMatch.rawValue })?.removeFromSuperview()
+        default: break
+            
+        }
     }
 
 }
 
 extension SignUpViewController: SignUpViewInput {
-
+    func didPasswordsNotMatch() {
+        ErrorManager.configureAndAttchToTextField(errorLabel: .passwordsDontMatch, attachTo: passwordConfirmTextField, inView: view)
+    }
+    
+    func didTextFieldsEmpty() {
+        for textField in [emailTextField, passwordTextField, usernameTextField, passwordConfirmTextField] where textField.text!.isEmpty {
+            switch textField {
+            case emailTextField:
+                ErrorManager.configureAndAttchToTextField(errorLabel: .emailEmpty, attachTo: textField, inView: view)
+            case passwordTextField:
+                ErrorManager.configureAndAttchToTextField(errorLabel: .passwordEmpty, attachTo: textField, inView: view)
+            case usernameTextField:
+                ErrorManager.configureAndAttchToTextField(errorLabel: .usernameEmpty, attachTo: textField, inView: view)
+            case passwordConfirmTextField:
+                ErrorManager.configureAndAttchToTextField(errorLabel: .confirmPasswordEmpty, attachTo: textField, inView: view)
+            default: break
+                
+            }
+        }
+    }
+    
+    func showErrorBanner(error: ServiceError) {
+        ErrorManager.showErrorBanner(text: error.title)
+    }
+    
 }
