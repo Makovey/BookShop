@@ -10,7 +10,7 @@ import UIKit
 protocol SignUpViewInput: AnyObject {
     func didTextFieldsEmpty()
     func didPasswordsNotMatch()
-    func showErrorBanner(error: ServiceError)
+    func showErrorBanner(_ error: ServiceError)
 }
 
 protocol SignUpViewOutput {
@@ -75,7 +75,7 @@ class SignUpViewController: UIViewController {
         return passwordStack
     }()
 
-    let passwordConfirmLabel = Label(withText: "Confirm Password".localized(), fontSize: Constant.titleFontSize)
+    let passwordConfirmLabel = Label(withText: "Confirm Password".localized(), fontSize: Constant.middleFontSize)
     var passwordConfirmTextField = TextField()
     
     lazy var passwordConfirmStack: UIStackView = {
@@ -244,14 +244,33 @@ extension SignUpViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case usernameTextField:
+            Animator.animateColorForTextField(usernameTextField, color: .systemYellow)
             view.subviews.first(where: { $0.tag == ClientError.usernameEmpty.rawValue })?.removeFromSuperview()
         case emailTextField:
+            Animator.animateColorForTextField(emailTextField, color: .systemYellow)
             view.subviews.first(where: { $0.tag == ClientError.emailEmpty.rawValue })?.removeFromSuperview()
         case passwordTextField:
+            Animator.animateColorForTextField(passwordTextField, color: .systemYellow)
             view.subviews.first(where: { $0.tag == ClientError.passwordEmpty.rawValue })?.removeFromSuperview()
         case passwordConfirmTextField:
+            Animator.animateColorForTextField(passwordConfirmTextField, color: .systemYellow)
             view.subviews.first(where: { $0.tag == ClientError.confirmPasswordEmpty.rawValue })?.removeFromSuperview()
             view.subviews.first(where: { $0.tag == ClientError.passwordsDontMatch.rawValue })?.removeFromSuperview()
+        default: break
+            
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case usernameTextField:
+            Animator.animateColorForTextField(usernameTextField, color: .lightGray)
+        case emailTextField:
+            Animator.animateColorForTextField(emailTextField, color: .lightGray)
+        case passwordTextField:
+            Animator.animateColorForTextField(passwordTextField, color: .lightGray)
+        case passwordConfirmTextField:
+            Animator.animateColorForTextField(passwordConfirmTextField, color: .lightGray)
         default: break
             
         }
@@ -281,7 +300,7 @@ extension SignUpViewController: SignUpViewInput {
         }
     }
     
-    func showErrorBanner(error: ServiceError) {
+    func showErrorBanner(_ error: ServiceError) {
         ErrorManager.showErrorBanner(text: error.title)
     }
     

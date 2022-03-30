@@ -9,7 +9,7 @@ import UIKit
 
 struct ErrorManager {
     static func configureAndAttchToTextField(errorLabel: ClientError, attachTo textField: TextField, inView view: UIView) {
-        let label = Label(withText: errorLabel.title, fontSize: Constant.descriptionFontSize)
+        let label = Label(withText: errorLabel.title, fontSize: Constant.smallestFontSize)
         label.tag = errorLabel.rawValue
         
         label.textColor = .systemRed
@@ -28,7 +28,8 @@ struct ErrorManager {
         let container = UIView()
         container.backgroundColor = UIColor.systemRed
 
-        let label = Label(withText: text, fontSize: Constant.titleFontSize)
+        let label = Label(withText: text, fontSize: Constant.middleFontSize)
+        label.textColor = .systemBackground
         label.textAlignment = .center
         
         container.addSubview(label)

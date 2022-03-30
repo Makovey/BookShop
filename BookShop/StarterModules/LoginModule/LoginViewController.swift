@@ -10,7 +10,7 @@ import UIKit
 
 protocol LoginViewInput: AnyObject {
     func didTextFieldsEmpty()
-    func showErrorFromService(error: ServiceError)
+    func showErrorFromService(_ error: ServiceError)
 }
 
 protocol LoginViewOutput {
@@ -24,7 +24,7 @@ class LoginViewController: UIViewController {
     
     let welcomeLabel = Label(withText: "Welcome".localized(), fontSize: 24)
     var descriptionLabel: Label {
-        let descriptionLabel = Label(withText: "Please, login to start your shopping".localized(), fontSize: Constant.descriptionFontSize)
+        let descriptionLabel = Label(withText: "Please, login to start your shopping".localized(), fontSize: Constant.smallestFontSize)
         descriptionLabel.textColor = .systemGray
         
         return descriptionLabel
@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
         return labelsStack
     }()
     
-    let emailLabel = Label(withText: "Email".localized(), fontSize: Constant.titleFontSize)
+    let emailLabel = Label(withText: "Email".localized(), fontSize: Constant.middleFontSize)
     let emailTextField = TextField()
     
     lazy var emailStack: UIStackView = {
@@ -52,7 +52,7 @@ class LoginViewController: UIViewController {
         return emailStack
     }()
     
-    let passwordLabel = Label(withText: "Password".localized(), fontSize: Constant.titleFontSize)
+    let passwordLabel = Label(withText: "Password".localized(), fontSize: Constant.middleFontSize)
     let passwordTextField = TextField()
     
     lazy var passwordStack: UIStackView = {
@@ -182,16 +182,10 @@ extension LoginViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case emailTextField:
-            UIView.animate(withDuration: 0.3) {
-                self.emailTextField.bottomBorder.backgroundColor = .systemYellow
-            }
-            
+            Animator.animateColorForTextField(emailTextField, color: .systemYellow)
             view.subviews.first(where: { $0.tag == ClientError.emailEmpty.rawValue })?.removeFromSuperview()
         case passwordTextField:
-            UIView.animate(withDuration: 0.3) {
-                self.passwordTextField.bottomBorder.backgroundColor = .systemYellow
-            }
-            
+            Animator.animateColorForTextField(passwordTextField, color: .systemYellow)
             view.subviews.first(where: { $0.tag == ClientError.passwordEmpty.rawValue })?.removeFromSuperview()
         default: break
         }
@@ -200,20 +194,16 @@ extension LoginViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case emailTextField:
-            UIView.animate(withDuration: 0.3) {
-                self.emailTextField.bottomBorder.backgroundColor = .lightGray
-            }
+            Animator.animateColorForTextField(emailTextField, color: .lightGray)
         case passwordTextField:
-            UIView.animate(withDuration: 0.3) {
-                self.passwordTextField.bottomBorder.backgroundColor = .lightGray
-            }
+            Animator.animateColorForTextField(passwordTextField, color: .lightGray)
         default: break
         }
     }
 }
 
 extension LoginViewController: LoginViewInput {
-    func showErrorFromService(error: ServiceError) {
+    func showErrorFromService(_ error: ServiceError) {
         ErrorManager.showErrorBanner(text: error.title)
     }
     

@@ -33,11 +33,11 @@ extension LoginPresenter: LoginViewOutput {
 
 extension LoginPresenter: LoginInteractorOutput {
     func errorFromService(error: ServiceError) {
-        viewController?.showErrorFromService(error: error)
+        viewController?.showErrorFromService(error)
     }
     
     func getLoginResponse(loginResponse: ConfirmUserDTO) {
-        router.openHomeScreen(name: loginResponse.username)
+        router.createTabBar(username: loginResponse.username)
     }
     
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     func localized() -> String {
@@ -16,4 +17,14 @@ extension String {
             value: self,
             comment: self)
     }
+}
+
+extension String {
+    func strikeThrough() -> NSAttributedString {
+        return NSAttributedString(
+            string: self,
+            attributes: [.strikethroughStyle: NSUnderlineStyle.single.rawValue]
+        )
+    }
+
 }

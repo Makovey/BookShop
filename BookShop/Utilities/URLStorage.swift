@@ -10,4 +10,5 @@ enum URLStorage {
     
     static let login = basicPath + "login"
     static let register = basicPath + "register"
+    static let discounts = basicPath + "discounts"
 }

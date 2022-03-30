@@ -21,3 +21,10 @@ post '/register' do
     send_file 'register.json', :halt => 201
     
 end
+
+get '/discounts' do
+    content_type :json
+    
+    send_file 'discount.json', :halt => 201
+    
+end
