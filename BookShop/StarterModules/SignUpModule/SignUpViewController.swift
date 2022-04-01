@@ -87,7 +87,7 @@ class SignUpViewController: UIViewController {
         return passwordConfirmStack
     }()
 
-    let signUpButton = Button(title: "Sign Up".localized())
+    let signUpButton = Button(title: "Sign Up".localized(), fontSize: 18)
 
     override func viewDidLoad() {
         super.viewDidLoad()

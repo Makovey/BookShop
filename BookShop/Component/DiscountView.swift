@@ -81,26 +81,31 @@ class DiscountView: UIView {
         
         let oldPrice = Label(fontSize: Constant.Discount.smallestFontSize)
         oldPrice.attributedText = data.oldPrice.strikeThrough()
-        oldPrice.widthAnchor.constraint(equalToConstant: 50).isActive = true
         
         let newPrice = Label(withText: data.newPrice, fontSize: Constant.Discount.middleFontSize)
         newPrice.textColor = .systemRed
         
-        let priceStack = UIStackView(arrangedSubviews: [oldPrice, newPrice])
+        let button = Button(title: "To cart".localized(), fontSize: Constant.smallestFontSize)
+        button.backgroundColor = .label
+        button.layer.cornerRadius = 5
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        let priceStack = UIStackView(arrangedSubviews: [oldPrice, newPrice, button])
         priceStack.axis = .horizontal
+        priceStack.distribution = .fillProportionally
         
-        let textStack = UIStackView(arrangedSubviews: [title, description, priceStack])
-        textStack.translatesAutoresizingMaskIntoConstraints = false
-        textStack.axis = .vertical
-        textStack.distribution = .fillEqually
+        let contentStack = UIStackView(arrangedSubviews: [title, description, priceStack])
+        contentStack.translatesAutoresizingMaskIntoConstraints = false
+        contentStack.axis = .vertical
+        contentStack.distribution = .fillProportionally
         
-        discountView.addSubview(textStack)
+        discountView.addSubview(contentStack)
         
         NSLayoutConstraint.activate([
-            textStack.topAnchor.constraint(equalTo: discountView.topAnchor, constant: 15),
-            textStack.leadingAnchor.constraint(equalTo: bookImage.trailingAnchor, constant: 15),
-            textStack.bottomAnchor.constraint(equalTo: discountView.bottomAnchor, constant: -15),
-            textStack.trailingAnchor.constraint(equalTo: discountView.trailingAnchor, constant: -5)
+            contentStack.topAnchor.constraint(equalTo: discountView.topAnchor, constant: 20),
+            contentStack.leadingAnchor.constraint(equalTo: bookImage.trailingAnchor, constant: 20),
+            contentStack.bottomAnchor.constraint(equalTo: discountView.bottomAnchor, constant: -20),
+            contentStack.trailingAnchor.constraint(equalTo: discountView.trailingAnchor, constant: -20)
         ])
     }
     

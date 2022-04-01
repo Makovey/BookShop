@@ -64,7 +64,7 @@ class LoginViewController: UIViewController {
         return passwordStack
     }()
     
-    let loginButton = Button(title: "Login".localized())
+    let loginButton = Button(title: "Login".localized(), fontSize: Constant.middleFontSize)
     
     override func viewDidLoad() {
         super.viewDidLoad()
