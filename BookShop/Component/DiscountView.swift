@@ -8,6 +8,9 @@
 import Foundation
 import UIKit
 
+// КАЖИСЬ НУЖНО ЕГО СДЕЛАТЬ ОТДЕЛЬНЫМ VIPER МОДУЛЕМ
+// В ПОСЛЕДСТВИИ ПО КЛИКУ НА ВЬЮ, БУДЕТ РЕДИРЕКТ НА ЭКРАН КАРТОЧКИ ТОВАРА
+// НУ И GET ЗАПРОС НА ПОЛУЧЕНИЕ ДАННЫХ
 class DiscountView: UIView {
     
     let data: DiscountDTO
@@ -46,6 +49,16 @@ class DiscountView: UIView {
         return imageView
     }()
     
+    lazy var toCartButton: Button = {
+        let button = Button(title: "To cart".localized(), fontSize: Constant.smallestFontSize)
+        button.backgroundColor = .label
+        button.layer.cornerRadius = 5
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        button.addTarget(self, action: #selector(toCartButtonTapped), for: .touchUpInside)
+        
+        return button
+    }()
+    
     func assemblyAndEdgeTo(_ container: UIView) {
         container.addSubview(discountView)
         
@@ -57,7 +70,7 @@ class DiscountView: UIView {
         ])
         
         configreImage()
-        configureContentText()
+        configureContent()
     }
     
     func configreImage() {
@@ -71,7 +84,7 @@ class DiscountView: UIView {
         ])
     }
     
-    func configureContentText() {
+    func configureContent() {
         let title = Label(withText: data.name, fontSize: Constant.Discount.biggestFontSize)
         let description = Label(withText: data.description, fontSize: Constant.Discount.middleFontSize)
         
@@ -84,13 +97,8 @@ class DiscountView: UIView {
         
         let newPrice = Label(withText: data.newPrice, fontSize: Constant.Discount.middleFontSize)
         newPrice.textColor = .systemRed
-        
-        let button = Button(title: "To cart".localized(), fontSize: Constant.smallestFontSize)
-        button.backgroundColor = .label
-        button.layer.cornerRadius = 5
-        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
-        let priceStack = UIStackView(arrangedSubviews: [oldPrice, newPrice, button])
+                
+        let priceStack = UIStackView(arrangedSubviews: [oldPrice, newPrice, toCartButton])
         priceStack.axis = .horizontal
         priceStack.distribution = .fillProportionally
         
@@ -108,7 +116,11 @@ class DiscountView: UIView {
             contentStack.trailingAnchor.constraint(equalTo: discountView.trailingAnchor, constant: -20)
         ])
     }
-    
+        
+    @objc private func toCartButtonTapped() {
+        toCartButton.backgroundColor = .systemGreen
+    }
+
     func converBase64ToImage(base64String: String) -> UIImage {
         guard let imageData = Data(base64Encoded: base64String) else { return UIImage() }
         let image = UIImage(data: imageData)

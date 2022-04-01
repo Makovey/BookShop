@@ -40,3 +40,6 @@
 "Welcome," = "Привет,";
 "Have a nice day :)" = "Хорошего вам дня :)";
 "best deal of the week" = "товар недели";
+
+// DiscountView
+"To cart" = "В корзину";
