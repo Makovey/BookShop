@@ -15,7 +15,7 @@ protocol HomeViewControllerInput: AnyObject {
 
 protocol HomeViewControllerOutput {
     func viewDidLoad()
-    func decodeImage(base64String: String, completion: @escaping (UIImage?) -> Void)
+    func decodeImage(base64String: String, completion: @escaping (Data?) -> Void)
 }
 
 class HomeViewController: UIViewController {
@@ -55,7 +55,7 @@ class HomeViewController: UIViewController {
         
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
-
+        
         collectionView.register(DiscountViewCell.self, forCellWithReuseIdentifier: "DiscountCell")
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -125,7 +125,15 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         stylizeCell(cell)
         
         if let data = discounts?[indexPath.row] {
-            output?.decodeImage(base64String: data.image) { image in
+            output?.decodeImage(base64String: data.image) { decodedImage in
+                var image = UIImage(systemName: "book.closed.fill")
+                
+                if let safetyDecoded = decodedImage {
+                    if let safetyImage = UIImage(data: safetyDecoded) {
+                        image = safetyImage
+                    }
+                }
+
                 cell.bookImage.image = image
             }
             

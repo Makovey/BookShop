@@ -23,7 +23,7 @@ class DiscountViewCell: UICollectionViewCell {
     
     lazy var bookImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemGray
+        imageView.tintColor = .systemGray
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView

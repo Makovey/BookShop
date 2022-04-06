@@ -20,15 +20,9 @@ class HomePresenter {
 }
 
 extension HomePresenter: HomeViewControllerOutput {
-    func decodeImage(base64String: String, completion: @escaping (UIImage?) -> Void) {
+    func decodeImage(base64String: String, completion: @escaping (Data?) -> Void) {
         DispatchQueue.main.async {
-            guard let imageData = Data(base64Encoded: base64String) else {
-                completion(UIImage(systemName: "book.closed.fill"))
-                return
-            }
-            
-            completion(UIImage(data: imageData))
-            return
+            completion(Data(base64Encoded: base64String))
         }
     }
     
