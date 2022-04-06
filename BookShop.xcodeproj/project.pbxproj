@@ -217,6 +217,7 @@
 		5E2E8B9E27CFD1BF002AA85E /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				5E09377327CEB75E00C66A4A /* DTO */,
 				5E2E8B9F27D00172002AA85E /* NetworkService.swift */,
 			);
 			path = Service;
@@ -254,6 +255,16 @@
 				5EF14C6027F366630046DE9B /* DiscountViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		5E613DB327FDE32000E2E607 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5E89ACF827D2AE4E00276B01 /* StarterModules */,
+				5E89ACFA27D2AECE00276B01 /* MainModules */,
+				5E0A543827BABCB800FCA23D /* Component */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		5E71668127BEE5CB00460552 /* SignUpModule */ = {
@@ -325,11 +336,8 @@
 		5E8C3E9C27B698E1007BD364 /* BookShop */ = {
 			isa = PBXGroup;
 			children = (
-				5E09377327CEB75E00C66A4A /* DTO */,
+				5E613DB327FDE32000E2E607 /* UI */,
 				5E2E8B9E27CFD1BF002AA85E /* Service */,
-				5E89ACF827D2AE4E00276B01 /* StarterModules */,
-				5E89ACFA27D2AECE00276B01 /* MainModules */,
-				5E0A543827BABCB800FCA23D /* Component */,
 				5E10E83227C96AEB0009BBA7 /* Utilities */,
 				5E8C3E9D27B698E1007BD364 /* AppDelegate.swift */,
 				5E8C3E9F27B698E1007BD364 /* SceneDelegate.swift */,
