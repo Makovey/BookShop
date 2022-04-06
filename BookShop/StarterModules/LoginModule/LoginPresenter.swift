@@ -37,7 +37,7 @@ extension LoginPresenter: LoginInteractorOutput {
     }
     
     func getLoginResponse(loginResponse: ConfirmUserDTO) {
-        router.createTabBar(username: loginResponse.username)
+        router.openHomeScreen(name: loginResponse.username)
     }
     
 }

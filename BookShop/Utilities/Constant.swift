@@ -28,5 +28,7 @@ enum Constant {
         static let biggestFontSize: CGFloat = 16
         static let middleFontSize: CGFloat = 14
         static let smallestFontSize: CGFloat = 12
+        
+        static let sideDistance: CGFloat = 20
     }
 }

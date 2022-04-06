@@ -10,11 +10,12 @@ import UIKit
 
 protocol HomeViewControllerInput: AnyObject {
     func showBannerError(_ error: ServiceError)
-    func createDiscountBlock(discountsData: [DiscountDTO])
+    func fetchDiscountData(discountsData: [DiscountDTO])
 }
 
 protocol HomeViewControllerOutput {
     func viewDidLoad()
+    func decodeImage(base64String: String, completion: @escaping (UIImage?) -> Void)
 }
 
 class HomeViewController: UIViewController {
@@ -22,7 +23,9 @@ class HomeViewController: UIViewController {
     
     var name: String?
     
-    lazy var nameLabel = Label(withText: "Welcome,".localized() + " \(name ?? "")", fontSize: Constant.biggestFontSize)
+    var discounts: [DiscountDTO]?
+    
+    lazy var nameLabel = Label(withText: String(format: "Welcome, %@".localized(), name ?? ""), fontSize: Constant.biggestFontSize)
     var wishLabel: Label {
         let wishLabel = Label(withText: "Have a nice day :)".localized(), fontSize: Constant.middleFontSize)
         wishLabel.textColor = .systemGray
@@ -41,20 +44,22 @@ class HomeViewController: UIViewController {
     
     let discountLabel = Label(withText: "best deal of the week".localized(), fontSize: Constant.middleFontSize)
     
-    lazy var discountScrollView: UIScrollView = {
-        let discountScrollView = UIScrollView()
-        discountScrollView.isPagingEnabled = true
-        discountScrollView.showsHorizontalScrollIndicator = false
+    lazy var discountCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 20
         
-        discountScrollView.translatesAutoresizingMaskIntoConstraints = false
-        return discountScrollView
-    }()
-    
-    lazy var discountStack: UIStackView = {
-        let discountStack = UIStackView()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
-        discountStack.translatesAutoresizingMaskIntoConstraints = false
-        return discountStack
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+
+        collectionView.register(DiscountViewCell.self, forCellWithReuseIdentifier: "DiscountCell")
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
     }()
     
     override func viewDidLoad() {
@@ -62,19 +67,18 @@ class HomeViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         
-        output?.viewDidLoad()
-        
         configureGreetingsStack()
         configureDiscountLabel()
-        configureDiscountScrollView()
-        configureDiscountStack()
+        configureDiscountCollectionView()
+        
+        output?.viewDidLoad()
     }
     
     private func configureGreetingsStack() {
         view.addSubview(greetingStack)
         
         NSLayoutConstraint.activate([
-            greetingStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -Constant.topDistance),
+            greetingStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             greetingStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
             greetingStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
             greetingStack.heightAnchor.constraint(equalToConstant: Constant.stackHeight)
@@ -95,53 +99,72 @@ class HomeViewController: UIViewController {
         ])
     }
     
-    private func configureDiscountScrollView() {
-        view.addSubview(discountScrollView)
+    private func configureDiscountCollectionView() {
+        view.addSubview(discountCollectionView)
         
         NSLayoutConstraint.activate([
-            discountScrollView.topAnchor.constraint(equalTo: discountLabel.bottomAnchor),
-            discountScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
-            discountScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
-            discountScrollView.heightAnchor.constraint(equalToConstant: Constant.Discount.discountBlockHeight)
+            discountCollectionView.topAnchor.constraint(equalTo: discountLabel.bottomAnchor),
+            discountCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.sideDistance),
+            discountCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.sideDistance),
+            discountCollectionView.heightAnchor.constraint(equalToConstant: Constant.Discount.discountBlockHeight)
         ])
     }
     
-    private func configureDiscountStack() {
-        discountScrollView.addSubview(discountStack)
-        
-        NSLayoutConstraint.activate([
-            discountStack.topAnchor.constraint(equalTo: discountScrollView.topAnchor),
-            discountStack.bottomAnchor.constraint(equalTo: discountScrollView.bottomAnchor),
-            discountStack.leadingAnchor.constraint(equalTo: discountScrollView.leadingAnchor),
-            discountStack.trailingAnchor.constraint(equalTo: discountScrollView.trailingAnchor)
-        ])
-        
+}
+
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return discounts?.count ?? 0
     }
     
-    private func createContainerForDiscount() -> UIView {
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-
-        discountStack.addArrangedSubview(container)
-
-        container.heightAnchor.constraint(equalTo: discountScrollView.heightAnchor).isActive = true
-        container.widthAnchor.constraint(equalTo: discountScrollView.widthAnchor).isActive = true
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DiscountCell", for: indexPath) as? DiscountViewCell else {
+            return UICollectionViewCell()
+        }
         
-        return container
+        stylizeCell(cell)
+        
+        if let data = discounts?[indexPath.row] {
+            output?.decodeImage(base64String: data.image) { image in
+                cell.bookImage.image = image
+            }
+            
+            cell.title.text = data.name
+            cell.descriptionOfBook.text = data.description
+            cell.oldPrice.attributedText = data.oldPrice.strikeThrough()
+            cell.newPrice.text = data.newPrice
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let frameSize = collectionView.frame.size
+        
+        return CGSize(width: frameSize.width - 20, height: frameSize.height - 20)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+    
+    private func stylizeCell(_ cell: UICollectionViewCell) {
+        cell.backgroundColor = .systemBackground
+        
+        cell.layer.cornerRadius = 20
+        
+        cell.layer.shadowOffset = .zero
+        cell.layer.shadowOpacity = 2
+        cell.layer.shadowRadius = 4
+        cell.layer.shadowColor = UIColor.label.cgColor
     }
     
 }
 
 extension HomeViewController: HomeViewControllerInput {
-    func createDiscountBlock(discountsData: [DiscountDTO]) {
-        discountsData.forEach { (discountData) in
-            let container = createContainerForDiscount()
-            
-            let discountView = DiscountView(discountData: discountData)
-            
-            discountView.assemblyAndEdgeTo(container)
-            
-        }
+    func fetchDiscountData(discountsData: [DiscountDTO]) {
+        discounts = discountsData
+        discountCollectionView.reloadData()
     }
     
     func showBannerError(_ error: ServiceError) {

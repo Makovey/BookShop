@@ -262,18 +262,7 @@ extension SignUpViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField {
-        case usernameTextField:
-            Animator.animateColorForTextField(usernameTextField, color: .lightGray)
-        case emailTextField:
-            Animator.animateColorForTextField(emailTextField, color: .lightGray)
-        case passwordTextField:
-            Animator.animateColorForTextField(passwordTextField, color: .lightGray)
-        case passwordConfirmTextField:
-            Animator.animateColorForTextField(passwordConfirmTextField, color: .lightGray)
-        default: break
-            
-        }
+        Animator.animateColorForTextField(textField as? TextField, color: .lightGray)
     }
 
 }

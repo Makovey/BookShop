@@ -54,7 +54,7 @@
 		5EABDBCC27CFC4C7001F1F97 /* ConfirmUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EABDBCB27CFC4C7001F1F97 /* ConfirmUserDTO.swift */; };
 		5ED6200B27D66F9700190C22 /* SignUpDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED6200A27D66F9700190C22 /* SignUpDTO.swift */; };
 		5EEDAB8827D1287800BB9FA2 /* URLStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEDAB8727D1287800BB9FA2 /* URLStorage.swift */; };
-		5EF14C6127F366630046DE9B /* DiscountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF14C6027F366630046DE9B /* DiscountView.swift */; };
+		5EF14C6127F366630046DE9B /* DiscountViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF14C6027F366630046DE9B /* DiscountViewCell.swift */; };
 		5EF6248027E3B96900C46366 /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF6247F27E3B96900C46366 /* ErrorManager.swift */; };
 		5EF6248327E3C8EE00C46366 /* ClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF6248227E3C8EE00C46366 /* ClientError.swift */; };
 /* End PBXBuildFile section */
@@ -129,7 +129,7 @@
 		5EABDBCB27CFC4C7001F1F97 /* ConfirmUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmUserDTO.swift; sourceTree = "<group>"; };
 		5ED6200A27D66F9700190C22 /* SignUpDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDTO.swift; sourceTree = "<group>"; };
 		5EEDAB8727D1287800BB9FA2 /* URLStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLStorage.swift; sourceTree = "<group>"; };
-		5EF14C6027F366630046DE9B /* DiscountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountView.swift; sourceTree = "<group>"; };
+		5EF14C6027F366630046DE9B /* DiscountViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountViewCell.swift; sourceTree = "<group>"; };
 		5EF6247F27E3B96900C46366 /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
 		5EF6248227E3C8EE00C46366 /* ClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -174,7 +174,6 @@
 				5E0A544627BADBB500FCA23D /* Button.swift */,
 				5E0A545327BC449500FCA23D /* TextField.swift */,
 				5E0A545527BC46BC00FCA23D /* Label.swift */,
-				5EF14C6027F366630046DE9B /* DiscountView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -249,6 +248,14 @@
 			path = ProfileModule;
 			sourceTree = "<group>";
 		};
+		5E613DB227FDBDCC00E2E607 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				5EF14C6027F366630046DE9B /* DiscountViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		5E71668127BEE5CB00460552 /* SignUpModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,6 +292,7 @@
 		5E89ACFB27D2AF2000276B01 /* HomeModule */ = {
 			isa = PBXGroup;
 			children = (
+				5E613DB227FDBDCC00E2E607 /* Cell */,
 				5E89AD0427D2AF6400276B01 /* HomeViewController.swift */,
 				5E89AD0227D2AF5900276B01 /* HomePresenter.swift */,
 				5E89AD0027D2AF4D00276B01 /* HomeInteractor.swift */,
@@ -549,7 +557,7 @@
 				5EF6248327E3C8EE00C46366 /* ClientError.swift in Sources */,
 				5E71668327BEE5ED00460552 /* SignUpViewController.swift in Sources */,
 				5E50017127E5081F000E1B4E /* ErrorDTO.swift in Sources */,
-				5EF14C6127F366630046DE9B /* DiscountView.swift in Sources */,
+				5EF14C6127F366630046DE9B /* DiscountViewCell.swift in Sources */,
 				5E0A544E27BC3F1D00FCA23D /* LoginPresenter.swift in Sources */,
 				5E0A545627BC46BC00FCA23D /* Label.swift in Sources */,
 				5EABDBCC27CFC4C7001F1F97 /* ConfirmUserDTO.swift in Sources */,

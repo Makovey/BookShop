@@ -37,9 +37,10 @@
 "Your password do not match" = "Ващи пароли не совпадают";
 
 // HomeScreen
-"Welcome," = "Привет,";
+"Welcome, %@" = "Привет, %@";
 "Have a nice day :)" = "Хорошего вам дня :)";
 "best deal of the week" = "товар недели";
 
 // DiscountView
 "To cart" = "В корзину";
+"In cart" = "В корзине";

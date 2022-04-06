@@ -33,9 +33,9 @@ class TabBarController: UITabBarController {
         let cartScreen = CartAssembly.createCartScreen()
         let profileScreen = ProfileAssembly.createProfileScreen()
         
-        guard let houseIcon = UIImage.init(systemName: "house") else { return }
-        guard let cartIcon = UIImage.init(systemName: "cart")  else { return }
-        guard let personIcon =  UIImage.init(systemName: "person") else { return }
+        guard let houseIcon = UIImage(systemName: "house") else { return }
+        guard let cartIcon = UIImage(systemName: "cart")  else { return }
+        guard let personIcon =  UIImage(systemName: "person") else { return }
         
         let homeNC = createNavController(for: homeScreen, title: "Home".localized(), image: houseIcon)
         let cartNC = createNavController(for: cartScreen, title: "Cart".localized(), image: cartIcon)

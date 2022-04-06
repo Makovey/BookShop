@@ -8,9 +8,9 @@
 import UIKit
 
 struct Animator {
-    static func animateColorForTextField(_ textField: TextField, color: UIColor) {
+    static func animateColorForTextField(_ textField: TextField?, color: UIColor) {
         UIView.animate(withDuration: 0.3) {
-            textField.bottomBorder.backgroundColor = color
+            textField?.bottomBorder.backgroundColor = color
         }
     }
 }

@@ -26,5 +26,14 @@ extension String {
             attributes: [.strikethroughStyle: NSUnderlineStyle.single.rawValue]
         )
     }
+}
 
+extension UIFont {
+    static func createFuturaFont(fontSize: CGFloat) -> UIFont {
+        guard let font = UIFont(name: "Futura", size: fontSize) else {
+            return UIFont.systemFont(ofSize: fontSize)
+        }
+        
+        return font
+    }
 }

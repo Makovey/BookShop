@@ -81,12 +81,7 @@ class NetworkService: NetworkServiceProtocol {
                 
                 if let safetyData = data, !safetyData.isEmpty {
                     let resultDecoding: Result<ResponseModel, NetworkError> = self.parseJSON(safetyData)
-                    switch resultDecoding {
-                    case.success(let data):
-                        completion(.success(data))
-                    case .failure(let error):
-                        completion(.failure(error))
-                    }
+                    completion(resultDecoding)
                 }
             }.resume()
             
@@ -99,10 +94,8 @@ class NetworkService: NetworkServiceProtocol {
         completion: @escaping (Result<ResponseModel, NetworkError>) -> Void) {
             guard var urlComponent = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return }
             
-            if let pathParameter = pathParameter {
-                urlComponent.queryItems = pathParameter
-            }
-                        
+            urlComponent.queryItems = pathParameter
+            
             var request = URLRequest(url: urlComponent.url!)
             
             if isTokenNeeded {
@@ -128,12 +121,7 @@ class NetworkService: NetworkServiceProtocol {
                 
                 if let safetyData = data, !safetyData.isEmpty {
                     let resultDecoding: Result<ResponseModel, NetworkError> = self.parseJSON(safetyData)
-                    switch resultDecoding {
-                    case.success(let data):
-                        completion(.success(data))
-                    case .failure(let error):
-                        completion(.failure(error))
-                    }
+                    completion(resultDecoding)
                 }
             }.resume()
             

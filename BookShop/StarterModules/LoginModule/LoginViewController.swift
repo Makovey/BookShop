@@ -192,13 +192,7 @@ extension LoginViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField {
-        case emailTextField:
-            Animator.animateColorForTextField(emailTextField, color: .lightGray)
-        case passwordTextField:
-            Animator.animateColorForTextField(passwordTextField, color: .lightGray)
-        default: break
-        }
+        Animator.animateColorForTextField(textField as? TextField, color: .lightGray)
     }
 }
 

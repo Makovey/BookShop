@@ -18,7 +18,7 @@ class Button: UIButton {
         super.init(frame: .zero)
         
         self.setTitle(title, for: .normal)
-        titleLabel?.font = UIFont(name: "Futura", size: fontSize)
+        titleLabel?.font = UIFont.createFuturaFont(fontSize: fontSize)
 
         layer.cornerRadius = 20
         translatesAutoresizingMaskIntoConstraints = false

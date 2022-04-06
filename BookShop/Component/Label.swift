@@ -18,7 +18,7 @@ class Label: UILabel {
         super.init(frame: .zero)
         text = withText
         textColor = .label
-        font = UIFont(name: "Futura", size: fontSize)
+        font = UIFont.createFuturaFont(fontSize: fontSize)
     }
     
     init(fontSize: CGFloat) {

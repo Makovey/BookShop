@@ -8,14 +8,14 @@
 import UIKit
 
 protocol LoginRouterInput {
-    func createTabBar(username: String)
+    func openHomeScreen(name: String)
 }
 
 class LoginRouter: LoginRouterInput {
     weak var rootViewController: UIViewController?
 
-    func createTabBar(username: String) {
-        let tabBarController = TabBarController(username: username)
+    func openHomeScreen(name: String) {
+        let tabBarController = TabBarController(username: name)
                 
         tabBarController.modalPresentationStyle = .fullScreen
         rootViewController?.present(tabBarController, animated: true, completion: nil)
