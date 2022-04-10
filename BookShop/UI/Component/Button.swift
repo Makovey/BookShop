@@ -14,18 +14,13 @@ class Button: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(title: String) {
+    init(title: String, fontSize: CGFloat) {
         super.init(frame: .zero)
+        
         self.setTitle(title, for: .normal)
-        configure()
-    }
+        titleLabel?.font = UIFont.futuraFont(size: fontSize)
 
-    private func configure() {
         layer.cornerRadius = 20
-
-        titleLabel?.font = UIFont(name: "Futura", size: 18)
-
         translatesAutoresizingMaskIntoConstraints = false
     }
-
 }

@@ -15,8 +15,9 @@ class LoginRouter: LoginRouterInput {
     weak var rootViewController: UIViewController?
 
     func openHomeScreen(name: String) {
-        let viewController = HomeAssembly.createHomeScreen(name: name)
-        viewController.modalPresentationStyle = .fullScreen
-        rootViewController?.present(viewController, animated: true, completion: nil)
+        let tabBarController = TabBarController(username: name)
+                
+        tabBarController.modalPresentationStyle = .fullScreen
+        rootViewController?.present(tabBarController, animated: true, completion: nil)
     }
 }

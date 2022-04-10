@@ -8,10 +8,12 @@
 import UIKit
 
 class HomeAssembly {
-    static func createHomeScreen(name: String) -> UIViewController {
+    static func createHomeScreen(name: String?) -> UIViewController {
         let view = HomeViewController()
         let router = HomeRouter()
-        let interactor = HomeInteractor()
+        
+        let networkService = NetworkService.shared
+        let interactor = HomeInteractor(networkService: networkService)
         
         let presenter = HomePresenter(viewController: view, router: router, interactor: interactor)
         

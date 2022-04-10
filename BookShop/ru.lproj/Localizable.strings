@@ -20,6 +20,11 @@
 "Username" = "Имя";
 "Confirm Password" = "Подтвердите пароль";
 
+// TabBar
+"Home" = "Главная";
+"Cart" = "Корзина";
+"Profile" = "Профиль";
+
 // Errors
 "Please, fill your email" = "Пожалуйста, введите ваше имя";
 "Please, fill your password" = "Пожалуйста, введите ваш пароль";
@@ -30,3 +35,12 @@
 "Please, login again and try again" = "Пожалуйста, войдите войдите снова и попробуйте еще раз";
 "No internet connection" = "Нет интернет соединения";
 "Your password do not match" = "Ващи пароли не совпадают";
+
+// HomeScreen
+"Welcome, %@" = "Привет, %@";
+"Have a nice day :)" = "Хорошего вам дня :)";
+"best deal of the week" = "товар недели";
+
+// DiscountView
+"To cart" = "В корзину";
+"In cart" = "В корзине";

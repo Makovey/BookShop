@@ -26,6 +26,11 @@
 		5E10E83D27C974100009BBA7 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E10E83C27C974100009BBA7 /* Constant.swift */; };
 		5E1A878227DE7C4C0028F459 /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1A878127DE7C4C0028F459 /* ServiceError.swift */; };
 		5E2E8BA027D00172002AA85E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2E8B9F27D00172002AA85E /* NetworkService.swift */; };
+		5E344F2327F06F4300416B7B /* DiscountDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E344F2227F06F4300416B7B /* DiscountDTO.swift */; };
+		5E50017127E5081F000E1B4E /* ErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E50017027E5081F000E1B4E /* ErrorDTO.swift */; };
+		5E50017327E50BB4000E1B4E /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E50017227E50BB4000E1B4E /* Animator.swift */; };
+		5E50017727E51657000E1B4E /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E50017627E51657000E1B4E /* CartViewController.swift */; };
+		5E50017927E51668000E1B4E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E50017827E51668000E1B4E /* ProfileViewController.swift */; };
 		5E71668027BEB07800460552 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E71667F27BEB07800460552 /* Launch Screen.storyboard */; };
 		5E71668327BEE5ED00460552 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E71668227BEE5ED00460552 /* SignUpViewController.swift */; };
 		5E71668527BEE5FB00460552 /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E71668427BEE5FB00460552 /* SignUpPresenter.swift */; };
@@ -43,9 +48,13 @@
 		5E8C3EB527B698E4007BD364 /* BookShopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8C3EB427B698E4007BD364 /* BookShopTests.swift */; };
 		5E8C3EBF27B698E4007BD364 /* BookShopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8C3EBE27B698E4007BD364 /* BookShopUITests.swift */; };
 		5E8C3EC127B698E4007BD364 /* BookShopUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8C3EC027B698E4007BD364 /* BookShopUITestsLaunchTests.swift */; };
+		5E9E57D427E5FA390048FB71 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E57D327E5FA390048FB71 /* TabBarController.swift */; };
+		5E9E57D627E608A50048FB71 /* CartAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E57D527E608A50048FB71 /* CartAssembly.swift */; };
+		5E9E57D827E6092E0048FB71 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E57D727E6092E0048FB71 /* ProfileAssembly.swift */; };
 		5EABDBCC27CFC4C7001F1F97 /* ConfirmUserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EABDBCB27CFC4C7001F1F97 /* ConfirmUserDTO.swift */; };
 		5ED6200B27D66F9700190C22 /* SignUpDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED6200A27D66F9700190C22 /* SignUpDTO.swift */; };
 		5EEDAB8827D1287800BB9FA2 /* URLStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEDAB8727D1287800BB9FA2 /* URLStorage.swift */; };
+		5EF14C6127F366630046DE9B /* DiscountViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF14C6027F366630046DE9B /* DiscountViewCell.swift */; };
 		5EF6248027E3B96900C46366 /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF6247F27E3B96900C46366 /* ErrorManager.swift */; };
 		5EF6248327E3C8EE00C46366 /* ClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF6248227E3C8EE00C46366 /* ClientError.swift */; };
 /* End PBXBuildFile section */
@@ -88,6 +97,11 @@
 		5E10E83C27C974100009BBA7 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		5E1A878127DE7C4C0028F459 /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
 		5E2E8B9F27D00172002AA85E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		5E344F2227F06F4300416B7B /* DiscountDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountDTO.swift; sourceTree = "<group>"; };
+		5E50017027E5081F000E1B4E /* ErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDTO.swift; sourceTree = "<group>"; };
+		5E50017227E50BB4000E1B4E /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
+		5E50017627E51657000E1B4E /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		5E50017827E51668000E1B4E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5E71667F27BEB07800460552 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5E71668227BEE5ED00460552 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		5E71668427BEE5FB00460552 /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
@@ -109,9 +123,13 @@
 		5E8C3EBA27B698E4007BD364 /* BookShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookShopUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E8C3EBE27B698E4007BD364 /* BookShopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShopUITests.swift; sourceTree = "<group>"; };
 		5E8C3EC027B698E4007BD364 /* BookShopUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShopUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		5E9E57D327E5FA390048FB71 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		5E9E57D527E608A50048FB71 /* CartAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartAssembly.swift; sourceTree = "<group>"; };
+		5E9E57D727E6092E0048FB71 /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
 		5EABDBCB27CFC4C7001F1F97 /* ConfirmUserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmUserDTO.swift; sourceTree = "<group>"; };
 		5ED6200A27D66F9700190C22 /* SignUpDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDTO.swift; sourceTree = "<group>"; };
 		5EEDAB8727D1287800BB9FA2 /* URLStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLStorage.swift; sourceTree = "<group>"; };
+		5EF14C6027F366630046DE9B /* DiscountViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountViewCell.swift; sourceTree = "<group>"; };
 		5EF6247F27E3B96900C46366 /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
 		5EF6248227E3C8EE00C46366 /* ClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				5ED6200927D66F7E00190C22 /* StartersDTO */,
+				5E344F2127F06EE000416B7B /* MainDTO */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -190,6 +209,7 @@
 				5E10E83327C96B1A0009BBA7 /* Extensions.swift */,
 				5E10E83C27C974100009BBA7 /* Constant.swift */,
 				5EEDAB8727D1287800BB9FA2 /* URLStorage.swift */,
+				5E50017227E50BB4000E1B4E /* Animator.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -197,9 +217,54 @@
 		5E2E8B9E27CFD1BF002AA85E /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				5E09377327CEB75E00C66A4A /* DTO */,
 				5E2E8B9F27D00172002AA85E /* NetworkService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		5E344F2127F06EE000416B7B /* MainDTO */ = {
+			isa = PBXGroup;
+			children = (
+				5E344F2227F06F4300416B7B /* DiscountDTO.swift */,
+			);
+			path = MainDTO;
+			sourceTree = "<group>";
+		};
+		5E50017427E515FC000E1B4E /* CartModule */ = {
+			isa = PBXGroup;
+			children = (
+				5E50017627E51657000E1B4E /* CartViewController.swift */,
+				5E9E57D527E608A50048FB71 /* CartAssembly.swift */,
+			);
+			path = CartModule;
+			sourceTree = "<group>";
+		};
+		5E50017527E51637000E1B4E /* ProfileModule */ = {
+			isa = PBXGroup;
+			children = (
+				5E50017827E51668000E1B4E /* ProfileViewController.swift */,
+				5E9E57D727E6092E0048FB71 /* ProfileAssembly.swift */,
+			);
+			path = ProfileModule;
+			sourceTree = "<group>";
+		};
+		5E613DB227FDBDCC00E2E607 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				5EF14C6027F366630046DE9B /* DiscountViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		5E613DB327FDE32000E2E607 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5E89ACF827D2AE4E00276B01 /* StarterModules */,
+				5E89ACFA27D2AECE00276B01 /* MainModules */,
+				5E0A543827BABCB800FCA23D /* Component */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		5E71668127BEE5CB00460552 /* SignUpModule */ = {
@@ -228,6 +293,9 @@
 			isa = PBXGroup;
 			children = (
 				5E89ACFB27D2AF2000276B01 /* HomeModule */,
+				5E50017427E515FC000E1B4E /* CartModule */,
+				5E50017527E51637000E1B4E /* ProfileModule */,
+				5E9E57D327E5FA390048FB71 /* TabBarController.swift */,
 			);
 			path = MainModules;
 			sourceTree = "<group>";
@@ -235,6 +303,7 @@
 		5E89ACFB27D2AF2000276B01 /* HomeModule */ = {
 			isa = PBXGroup;
 			children = (
+				5E613DB227FDBDCC00E2E607 /* Cell */,
 				5E89AD0427D2AF6400276B01 /* HomeViewController.swift */,
 				5E89AD0227D2AF5900276B01 /* HomePresenter.swift */,
 				5E89AD0027D2AF4D00276B01 /* HomeInteractor.swift */,
@@ -267,11 +336,8 @@
 		5E8C3E9C27B698E1007BD364 /* BookShop */ = {
 			isa = PBXGroup;
 			children = (
-				5E09377327CEB75E00C66A4A /* DTO */,
+				5E613DB327FDE32000E2E607 /* UI */,
 				5E2E8B9E27CFD1BF002AA85E /* Service */,
-				5E89ACF827D2AE4E00276B01 /* StarterModules */,
-				5E89ACFA27D2AECE00276B01 /* MainModules */,
-				5E0A543827BABCB800FCA23D /* Component */,
 				5E10E83227C96AEB0009BBA7 /* Utilities */,
 				5E8C3E9D27B698E1007BD364 /* AppDelegate.swift */,
 				5E8C3E9F27B698E1007BD364 /* SceneDelegate.swift */,
@@ -306,6 +372,7 @@
 				5E09377427CEB7E500C66A4A /* LoginDTO.swift */,
 				5ED6200A27D66F9700190C22 /* SignUpDTO.swift */,
 				5EABDBCB27CFC4C7001F1F97 /* ConfirmUserDTO.swift */,
+				5E50017027E5081F000E1B4E /* ErrorDTO.swift */,
 			);
 			path = StartersDTO;
 			sourceTree = "<group>";
@@ -482,6 +549,7 @@
 				5E0A544A27BC3E0900FCA23D /* LoginViewController.swift in Sources */,
 				5E1A878227DE7C4C0028F459 /* ServiceError.swift in Sources */,
 				5EEDAB8827D1287800BB9FA2 /* URLStorage.swift in Sources */,
+				5E344F2327F06F4300416B7B /* DiscountDTO.swift in Sources */,
 				5E0A544C27BC3E9700FCA23D /* LoginAssembly.swift in Sources */,
 				5E10E83D27C974100009BBA7 /* Constant.swift in Sources */,
 				5E71668B27BEE65C00460552 /* SignUpAssembly.swift in Sources */,
@@ -490,22 +558,30 @@
 				5ED6200B27D66F9700190C22 /* SignUpDTO.swift in Sources */,
 				5E89ACFD27D2AF3A00276B01 /* HomeAssembly.swift in Sources */,
 				5E0A543D27BABD2100FCA23D /* StartViewController.swift in Sources */,
+				5E9E57D827E6092E0048FB71 /* ProfileAssembly.swift in Sources */,
 				5E0A544527BABD9600FCA23D /* StartAssembly.swift in Sources */,
 				5EF6248027E3B96900C46366 /* ErrorManager.swift in Sources */,
 				5E10E83427C96B1A0009BBA7 /* Extensions.swift in Sources */,
 				5EF6248327E3C8EE00C46366 /* ClientError.swift in Sources */,
 				5E71668327BEE5ED00460552 /* SignUpViewController.swift in Sources */,
+				5E50017127E5081F000E1B4E /* ErrorDTO.swift in Sources */,
+				5EF14C6127F366630046DE9B /* DiscountViewCell.swift in Sources */,
 				5E0A544E27BC3F1D00FCA23D /* LoginPresenter.swift in Sources */,
 				5E0A545627BC46BC00FCA23D /* Label.swift in Sources */,
 				5EABDBCC27CFC4C7001F1F97 /* ConfirmUserDTO.swift in Sources */,
 				5E0A544727BADBB500FCA23D /* Button.swift in Sources */,
 				5E0A544327BABD8B00FCA23D /* StartRouter.swift in Sources */,
+				5E50017727E51657000E1B4E /* CartViewController.swift in Sources */,
 				5E8C3E9E27B698E1007BD364 /* AppDelegate.swift in Sources */,
 				5E0A545027BC41FF00FCA23D /* LoginInteractor.swift in Sources */,
 				5E0A544127BABD7F00FCA23D /* StartInteractor.swift in Sources */,
+				5E50017327E50BB4000E1B4E /* Animator.swift in Sources */,
+				5E9E57D427E5FA390048FB71 /* TabBarController.swift in Sources */,
 				5E0A545427BC449500FCA23D /* TextField.swift in Sources */,
+				5E9E57D627E608A50048FB71 /* CartAssembly.swift in Sources */,
 				5E8C3EA027B698E1007BD364 /* SceneDelegate.swift in Sources */,
 				5E2E8BA027D00172002AA85E /* NetworkService.swift in Sources */,
+				5E50017927E51668000E1B4E /* ProfileViewController.swift in Sources */,
 				5E0A545227BC420F00FCA23D /* LoginRouter.swift in Sources */,
 				5E0A543F27BABD6D00FCA23D /* StartPresenter.swift in Sources */,
 			);

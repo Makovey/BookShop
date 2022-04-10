@@ -19,8 +19,8 @@ class StartViewController: UIViewController {
     var output: StartViewOutput?
 
     let logoImage = UIImageView()
-    let loginButton = Button(title: "Login".localized())
-    let signUpButton = Button(title: "Sign Up".localized())
+    let loginButton = Button(title: "Login".localized(), fontSize: Constant.middleFontSize)
+    let signUpButton = Button(title: "Sign Up".localized(), fontSize: Constant.middleFontSize)
     
     override func viewDidLoad() {
         super.viewDidLoad()

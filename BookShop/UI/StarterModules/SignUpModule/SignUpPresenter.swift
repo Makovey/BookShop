@@ -36,7 +36,7 @@ extension SignUpPresenter: SignUpViewOutput {
 
 extension SignUpPresenter: SignUpInteractorOutput {
     func errorFromService(error: ServiceError) {
-        viewController?.showErrorBanner(error: error)
+        viewController?.showErrorBanner(error)
     }
     
     func getSignUpResponse(signUpResponse: ConfirmUserDTO) {

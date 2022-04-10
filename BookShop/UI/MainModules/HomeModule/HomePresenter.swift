@@ -19,8 +19,16 @@ class HomePresenter {
 
 extension HomePresenter: HomeViewControllerOutput {
     func viewDidLoad() {
-        // WIP
+        interactor.getCurrentDiscounts(sizeOfDiscounts: 4)
     }
 }
 
-extension HomePresenter: HomeInteractorOutput {}
+extension HomePresenter: HomeInteractorOutput {
+    func getDiscountResponse(discounts: [DiscountDTO]) {
+        viewController?.fetchedDiscountData(discountsData: discounts)
+    }
+    
+    func errorFromService(error: ServiceError) {
+        viewController?.showBannerError(error)
+    }
+}
