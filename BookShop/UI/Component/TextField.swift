@@ -27,7 +27,7 @@ class TextField: UITextField {
         textColor = .label
         tintColor = .label
 
-        font = UIFont.createFuturaFont(fontSize: 16)
+        font = UIFont.futuraFont(size: 16)
         minimumFontSize = 12
 
         createBottomLine()

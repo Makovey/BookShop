@@ -29,11 +29,19 @@ extension String {
 }
 
 extension UIFont {
-    static func createFuturaFont(fontSize: CGFloat) -> UIFont {
-        guard let font = UIFont(name: "Futura", size: fontSize) else {
-            return UIFont.systemFont(ofSize: fontSize)
-        }
-        
-        return font
+    static func futuraFont(size: CGFloat) -> UIFont {
+        return UIFont(name: "Futura", size: size) ?? UIFont.systemFont(ofSize: size)
+    }
+}
+
+extension Button {
+    func changeButtonStateToInCart() {
+        backgroundColor = .systemGreen
+        setTitle("In cart".localized(), for: .normal)
+    }
+    
+    func changeButtonStateToNotInCart() {
+        backgroundColor = .label
+        setTitle("To cart".localized(), for: .normal)
     }
 }

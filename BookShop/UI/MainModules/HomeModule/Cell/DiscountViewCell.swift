@@ -45,9 +45,7 @@ class DiscountViewCell: UICollectionViewCell {
     }()
     
     lazy var oldPrice: Label = {
-        let oldPrice = Label(fontSize: Constant.Discount.smallestFontSize)
-        
-        return oldPrice
+        Label(fontSize: Constant.Discount.smallestFontSize)
     }()
     
     lazy var newPrice: Label = {
@@ -62,7 +60,6 @@ class DiscountViewCell: UICollectionViewCell {
         button.backgroundColor = .label
         button.layer.cornerRadius = 5
         button.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        button.addTarget(self, action: #selector(toCartButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -96,15 +93,5 @@ class DiscountViewCell: UICollectionViewCell {
             contentStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Constant.Discount.sideDistance),
             contentStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constant.Discount.sideDistance)
         ])
-    }
-    
-    @objc private func toCartButtonTapped() {
-        if toCartButton.backgroundColor == .label {
-            toCartButton.backgroundColor = .systemGreen
-            toCartButton.setTitle("In cart".localized(), for: .normal)
-        } else {
-            toCartButton.backgroundColor = .label
-            toCartButton.setTitle("To cart".localized(), for: .normal)
-        }
     }
 }

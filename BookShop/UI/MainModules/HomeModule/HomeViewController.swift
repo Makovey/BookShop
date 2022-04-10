@@ -10,12 +10,11 @@ import UIKit
 
 protocol HomeViewControllerInput: AnyObject {
     func showBannerError(_ error: ServiceError)
-    func fetchDiscountData(discountsData: [DiscountDTO])
+    func fetchedDiscountData(discountsData: [DiscountDTO])
 }
 
 protocol HomeViewControllerOutput {
     func viewDidLoad()
-    func decodeImage(base64String: String, completion: @escaping (Data?) -> Void)
 }
 
 class HomeViewController: UIViewController {
@@ -110,6 +109,7 @@ class HomeViewController: UIViewController {
         ])
     }
     
+    var productTagsInCart = [Int]()
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -125,25 +125,46 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         stylizeCell(cell)
         
         if let data = discounts?[indexPath.row] {
-            output?.decodeImage(base64String: data.image) { decodedImage in
-                var image = UIImage(systemName: "book.closed.fill")
-                
+            cell.bookImage.image = UIImage(systemName: "book.closed.fill")
+            
+            data.decodeImageToData { decodedImage in
                 if let safetyDecoded = decodedImage {
                     if let safetyImage = UIImage(data: safetyDecoded) {
-                        image = safetyImage
+                        DispatchQueue.main.async {
+                            cell.bookImage.image = safetyImage
+                        }
                     }
                 }
-
-                cell.bookImage.image = image
             }
             
             cell.title.text = data.name
             cell.descriptionOfBook.text = data.description
             cell.oldPrice.attributedText = data.oldPrice.strikeThrough()
             cell.newPrice.text = data.newPrice
+            
+            if productTagsInCart.contains(indexPath.row) {
+                cell.toCartButton.changeButtonStateToInCart()
+            } else {
+                cell.toCartButton.changeButtonStateToNotInCart()
+            }
+            
+            cell.toCartButton.tag = indexPath.row
+            cell.toCartButton.addTarget(self, action: #selector(toCartButtonTapped), for: .touchUpInside)
         }
         
         return cell
+    }
+    
+    @objc private func toCartButtonTapped(button: Button) {
+        if productTagsInCart.contains(button.tag) {
+            if let index = productTagsInCart.firstIndex(of: button.tag) {
+                productTagsInCart.remove(at: index)
+            }
+            button.changeButtonStateToNotInCart()
+        } else {
+            productTagsInCart.append(button.tag)
+            button.changeButtonStateToInCart()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -170,7 +191,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 }
 
 extension HomeViewController: HomeViewControllerInput {
-    func fetchDiscountData(discountsData: [DiscountDTO]) {
+    func fetchedDiscountData(discountsData: [DiscountDTO]) {
         discounts = discountsData
         discountCollectionView.reloadData()
     }

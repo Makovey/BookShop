@@ -20,7 +20,7 @@ class NetworkService: NetworkServiceProtocol {
     
     private init() {}
     
-    var token: String?
+    private var token: String?
     
     func loginWith(loginData: LoginDTO, completion: @escaping (Result<ConfirmUserDTO, NetworkError>) -> Void) {
         guard let url = URL(string: URLStorage.login) else { return }
